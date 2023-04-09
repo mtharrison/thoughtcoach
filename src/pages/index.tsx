@@ -11,6 +11,12 @@ import {
   Box,
   Textarea,
   HStack,
+  Link,
+  Card,
+  CardBody,
+  Heading,
+  Divider,
+  CardFooter,
   Spacer,
   Flex,
   ButtonGroup,
@@ -33,7 +39,7 @@ export default function Home() {
       </Head>
       <Container maxW="80rem" centerContent>
         <Header />
-        <Grid w="100%" templateColumns="60% 1fr" gap={6} mt={10}>
+        <Grid w="100%" templateColumns="60% 1fr" gap={6} mt={5}>
           <GridItem colSpan={{ sm: 2, lg: 1 }}>
             <Stack spacing={5}>
               <Box>
@@ -73,10 +79,10 @@ export default function Home() {
                 </Text>
               </Box>
               <Textarea minH={150}></Textarea>
-              <Button colorScheme="blue" size="sm" w="xs">
+              <Button colorScheme="blue" size="md" w="xs">
                 I'm ready for some feedback
               </Button>
-              <Box>
+              {/* <Box>
                 <Text fontSize="xl">
                   Here's an alternative way to think about this:
                 </Text>
@@ -85,21 +91,60 @@ export default function Home() {
                   identified, and how they might have impacted your emotions
                 </Text>
               </Box>
-              <Textarea minH={150}></Textarea>
+              <Textarea minH={150}></Textarea> */}
             </Stack>
           </GridItem>
-          <GridItem colSpan={{ sm: 2, lg: 1 }} bg="blue.500">
+          <GridItem colSpan={{ sm: 2, lg: 1 }}>
             <Stack spacing={3}>
-              <Text fontSize="6xl">(6xl) In love with React & Next</Text>
-              <Text fontSize="5xl">(5xl) In love with React & Next</Text>
-              <Text fontSize="4xl">(4xl) In love with React & Next</Text>
-              <Text fontSize="3xl">(3xl) In love with React & Next</Text>
-              <Text fontSize="2xl">(2xl) In love with React & Next</Text>
-              <Text fontSize="xl">(xl) In love with React & Next</Text>
-              <Text fontSize="lg">(lg) In love with React & Next</Text>
-              <Text fontSize="md">(md) In love with React & Next</Text>
-              <Text fontSize="sm">(sm) In love with React & Next</Text>
-              <Text fontSize="xs">(xs) In love with React & Next</Text>
+              <Heading size="md">
+                Potential Cognitive Distortions{" "}
+                <Link textDecoration="underline">(what is this?)</Link>
+              </Heading>
+              <Card
+                borderTopColor="pink.200"
+                borderTopWidth="thick"
+                borderTopRadius="lg"
+              >
+                <CardBody>
+                  <Stack mt="3" spacing="3">
+                    <Heading size="md">Personalisation</Heading>
+                    <Text>
+                      Personalization is when you take something personally that
+                      is not really about you. In this case, the you are
+                      assuming that the other driver's behavior was a direct
+                      reflection of your own worth and character.
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Button size="sm" colorScheme="gray">
+                    Read more about Personalisation
+                  </Button>
+                </CardFooter>
+              </Card>
+
+              <Card
+                borderTopColor="yellow.200"
+                borderTopWidth="thick"
+                borderTopRadius="lg"
+              >
+                <CardBody>
+                  <Stack mt="3" spacing="3">
+                    <Heading size="md">Emotional Reasoning</Heading>
+                    <Text>
+                      Emotional reasoning is when you assume your feelings
+                      reflect the truth of the situation.
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Button size="sm" colorScheme="gray">
+                    Read more about Emotional Reasoning
+                  </Button>
+                </CardFooter>
+              </Card>
             </Stack>
           </GridItem>
         </Grid>
