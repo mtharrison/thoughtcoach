@@ -19,7 +19,15 @@ const fonts = {
   heading: headerFont.style.fontFamily,
 };
 
-const theme = extendTheme({ breakpoints, fonts });
+const styles = {
+  global: () => ({
+    body: {
+      bg: "#E3E3EC",
+    },
+  }),
+};
+
+const theme = extendTheme({ breakpoints, fonts, styles });
 
 function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   return (

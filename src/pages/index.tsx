@@ -39,8 +39,14 @@ export default function Home() {
       </Head>
       <Container maxW="80rem" centerContent>
         <Header />
-        <Grid w="100%" templateColumns="60% 1fr" gap={6} mt={5}>
-          <GridItem colSpan={{ sm: 2, lg: 1 }}>
+        <Grid w="100%" templateColumns="60% 1fr" gap={5}>
+          <GridItem
+            borderRadius="md"
+            boxShadow="lg"
+            bg="white"
+            p={5}
+            colSpan={{ sm: 2, lg: 1 }}
+          >
             <Stack spacing={5}>
               <Box>
                 <Flex gap={5}>
@@ -94,19 +100,19 @@ export default function Home() {
               <Textarea minH={150}></Textarea>
             </Stack>
           </GridItem>
-          <GridItem colSpan={{ sm: 2, lg: 1 }}>
+          <GridItem borderRadius="md" colSpan={{ sm: 2, lg: 1 }}>
             <Stack spacing={3}>
-              <Heading size="md">
-                Potential Cognitive Distortions{" "}
+              <Heading size="sm">
+                Cognitive Distortions{" "}
                 <Link textDecoration="underline">(what is this?)</Link>
               </Heading>
               <Card
                 borderTopColor="pink.200"
-                borderTopWidth="thick"
+                borderTopWidth="10px"
                 borderTopRadius="lg"
               >
                 <CardBody>
-                  <Stack mt="3" spacing="3">
+                  <Stack mt="" spacing="3">
                     <Heading size="md">Personalisation</Heading>
                     <Text>
                       Personalization is when you take something personally that
@@ -126,11 +132,11 @@ export default function Home() {
 
               <Card
                 borderTopColor="yellow.200"
-                borderTopWidth="thick"
+                borderTopWidth="10px"
                 borderTopRadius="lg"
               >
                 <CardBody>
-                  <Stack mt="3" spacing="3">
+                  <Stack mt="" spacing="3">
                     <Heading size="md">Emotional Reasoning</Heading>
                     <Text>
                       Emotional reasoning is when you assume your feelings
