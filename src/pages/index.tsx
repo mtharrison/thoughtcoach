@@ -187,7 +187,12 @@ export default function Home() {
                 <Divider />
                 <CardFooter>
                   <Button size="sm" colorScheme="gray">
-                    Read more about Emotional Reasoning
+                    <Link
+                      href="https://en.wikipedia.org/wiki/Cognitive_distortion#Main_types"
+                      target="_blank"
+                    >
+                      Read more about Emotional Reasoning
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>

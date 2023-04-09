@@ -51,7 +51,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const messages1: FormattedMessage[] = steps[0].map((s) => {
+  const messages1: any = steps[0].map((s) => {
     if (typeof s.content === "function") {
       return {
         role: s.role,
@@ -73,7 +73,7 @@ export default async function handler(
     completion1.data.choices[0].message?.content as string
   );
 
-  const messages2: FormattedMessage[] = steps[1].map((s) => {
+  const messages2: any = steps[1].map((s) => {
     if (typeof s.content === "function") {
       return {
         role: s.role,
