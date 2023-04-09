@@ -37,9 +37,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container maxW="80rem" centerContent>
+      <Container maxW="80rem">
         <Header />
-        <Grid w="100%" templateColumns="60% 1fr" gap={5}>
+        <HStack>
+          <Button colorScheme="blue" size="sm" w="4xs">
+            Start again
+          </Button>
+          <Button variant="outline" colorScheme="blue" size="sm" w="4xs">
+            Show me an example
+          </Button>
+        </HStack>
+        <Grid w="100%" templateColumns="60% 1fr" mt="5" gap={5}>
           <GridItem
             borderRadius="md"
             boxShadow="lg"
@@ -57,20 +65,6 @@ export default function Home() {
                       occured that led you to have negative emotions
                     </Text>
                   </Box>
-                  <Spacer></Spacer>
-                  <Stack>
-                    <Button colorScheme="blue" size="sm" w="4xs">
-                      Start again
-                    </Button>
-                    <Button
-                      variant="outline"
-                      colorScheme="blue"
-                      size="sm"
-                      w="4xs"
-                    >
-                      Show me an example
-                    </Button>
-                  </Stack>
                 </Flex>
               </Box>
               <Textarea minH={150}></Textarea>
@@ -81,12 +75,12 @@ export default function Home() {
                 <Text fontSize="sm">
                   Often following a difficult situation we tell ourselves a
                   negative story, dig deep to uncover your self-talk following
-                  the events
+                  the event
                 </Text>
               </Box>
               <Textarea minH={150}></Textarea>
               <Button colorScheme="blue" size="md" w="xs">
-                I'm ready for some feedback
+                Ok, I'm ready for some feedback
               </Button>
               <Box>
                 <Text fontSize="xl">
