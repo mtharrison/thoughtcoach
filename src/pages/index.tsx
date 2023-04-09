@@ -24,11 +24,35 @@ import {
 
 import Header from "../components/header";
 
+import { useState } from "react";
+
 import * as constants from "../constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [eventText, setEventText] = useState("");
+  const [thoughtText, setThoughtText] = useState("");
+
+  const showExample = function () {
+    setEventText(constants.site.example.event);
+    setThoughtText(constants.site.example.thought);
+  };
+
+  const analyse = async function () {
+    try {
+      const res = await fetch("/api/analyse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eventText, thoughtText }),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -43,7 +67,13 @@ export default function Home() {
           <Button colorScheme="blue" size="sm" w="4xs">
             Start again
           </Button>
-          <Button variant="outline" colorScheme="blue" size="sm" w="4xs">
+          <Button
+            variant="outline"
+            colorScheme="blue"
+            size="sm"
+            w="4xs"
+            onClick={showExample}
+          >
             Show me an example
           </Button>
         </HStack>
@@ -62,12 +92,17 @@ export default function Home() {
                     <Text fontSize="xl">What happened?</Text>
                     <Text fontSize="sm">
                       Try to explain in as much detail as you can an event that
-                      occured that led you to have negative emotions
+                      occured that led you to have negative emotions. Explain
+                      like you would to a friend.
                     </Text>
                   </Box>
                 </Flex>
               </Box>
-              <Textarea minH={150}></Textarea>
+              <Textarea
+                minH={150}
+                onChange={(ev) => setEventText(ev.target.value)}
+                value={eventText}
+              />
               <Box>
                 <Text fontSize="xl">
                   What was the automatic negative thought?
@@ -75,11 +110,16 @@ export default function Home() {
                 <Text fontSize="sm">
                   Often following a difficult situation we tell ourselves a
                   negative story, dig deep to uncover your self-talk following
-                  the event
+                  the event. It might be something like "they must think I'm an
+                  idiot after doing that"
                 </Text>
               </Box>
-              <Textarea minH={150}></Textarea>
-              <Button colorScheme="blue" size="md" w="xs">
+              <Textarea
+                minH={150}
+                onChange={(ev) => setThoughtText(ev.target.value)}
+                value={thoughtText}
+              />
+              <Button onClick={analyse} colorScheme="blue" size="md" w="xs">
                 Ok, I'm ready for some feedback
               </Button>
               <Box>
