@@ -104,7 +104,13 @@ export default function Home() {
             <Stack spacing={3}>
               <Heading size="sm">
                 Cognitive Distortions{" "}
-                <Link textDecoration="underline">(what is this?)</Link>
+                <Link
+                  href="https://en.wikipedia.org/wiki/Cognitive_distortion#Main_types"
+                  target="blank"
+                  textDecoration="underline"
+                >
+                  (what is this?)
+                </Link>
               </Heading>
               <Card
                 borderTopColor="pink.200"
