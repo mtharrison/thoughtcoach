@@ -82,7 +82,7 @@ export default function Home() {
               <Button colorScheme="blue" size="md" w="xs">
                 I'm ready for some feedback
               </Button>
-              {/* <Box>
+              <Box>
                 <Text fontSize="xl">
                   Here's an alternative way to think about this:
                 </Text>
@@ -91,7 +91,7 @@ export default function Home() {
                   identified, and how they might have impacted your emotions
                 </Text>
               </Box>
-              <Textarea minH={150}></Textarea> */}
+              <Textarea minH={150}></Textarea>
             </Stack>
           </GridItem>
           <GridItem colSpan={{ sm: 2, lg: 1 }}>
