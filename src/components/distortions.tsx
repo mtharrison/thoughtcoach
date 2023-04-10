@@ -24,7 +24,7 @@ interface res {
 export default function Distortions({ response }: { response: any }) {
   return (
     <Stack spacing={3}>
-      <SimpleGrid minChildWidth={{ sm: "200px", md: "300px" }} spacing="20px">
+      <SimpleGrid minChildWidth={{ sm: "300px", md: "300px" }} spacing="20px">
         {Object.entries(response.distortions).map(([key, val], i) => {
           return (
             <Distortion
