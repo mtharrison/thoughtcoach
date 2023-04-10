@@ -40,6 +40,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  console.log({ type: "req", ...req.body });
+
   const messages1: any = steps[0].map((s) => {
     if (typeof s.content === "function") {
       return {
@@ -56,7 +58,7 @@ export default async function handler(
     messages: messages1 as FormattedMessage[],
   });
 
-  console.log(completion1.data.choices);
+  console.log({ type: "completions", choices: completion1.data.choices });
 
   res
     .status(200)
