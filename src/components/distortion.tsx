@@ -19,6 +19,7 @@ export default function Distortion({ data }: { data: any }) {
       borderTopColor={constants.site.distortions[data.key]}
       borderTopWidth="10px"
       borderTopRadius="lg"
+      boxShadow="lg"
     >
       <CardBody>
         <Stack mt="" spacing="3">

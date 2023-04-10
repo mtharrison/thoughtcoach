@@ -12,6 +12,7 @@ import {
   Textarea,
   HStack,
   Link,
+  Hide,
   Card,
   CardBody,
   Heading,
@@ -82,48 +83,70 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Container maxW="80rem">
-          <Header />
-          <HStack>
-            <Button onClick={restart} colorScheme="blue" size="sm" w="4xs">
-              Start again
-            </Button>
-            <Button
-              variant="outline"
-              colorScheme="blue"
-              size="sm"
-              w="4xs"
-              onClick={showExample}
+        <Container p={0} h="100%" w="100%" maxW="100%">
+          <Box p={3} bg="#554480">
+            <Header />
+            <Container
+              maxW={{ sm: "100%", md: "60%" }}
+              centerContent
+              mt={10}
+              mb={10}
             >
-              I don't get it, show me an example
-            </Button>
-          </HStack>
-          <Grid w="100%" templateColumns="50% 1fr" mt="5" gap={5}>
-            <GridItem
-              borderRadius="md"
-              boxShadow="lg"
-              bg="white"
-              p={5}
-              colSpan={{ sm: 2, lg: 1 }}
+              <Heading
+                color="headingColor"
+                textAlign="center"
+                lineHeight="10"
+                size="xl"
+              >
+                Change your perspective, change your world: The app that helps
+                you reframe negative thoughts.
+              </Heading>
+            </Container>
+          </Box>
+          <Container>
+            <HStack
+              justifyContent="flex-end"
+              my={5}
+              maxW={{ sm: "90%", md: "80%" }}
             >
-              <Stack spacing={5}>
-                {loaded && <Reframe response={response} />}
-                {!loaded && (
-                  <Input
-                    eventText={eventText}
-                    setEventText={setEventText}
-                    thoughtText={thoughtText}
-                    setThoughtText={setThoughtText}
-                    analyse={analyse}
-                    loading={loading}
-                  />
-                )}
-              </Stack>
-            </GridItem>
-            <GridItem borderRadius="md" colSpan={{ sm: 2, lg: 1 }}>
-              {loaded && <Distortions response={response} />}
-            </GridItem>
-          </Grid>
+              <Button onClick={restart} colorScheme="blue" size="sm" w="4xs">
+                Start again
+              </Button>
+              {!loaded && (
+                <Button
+                  variant="outline"
+                  colorScheme="blue"
+                  size="sm"
+                  w="4xs"
+                  onClick={showExample}
+                >
+                  I don't get it, show me an example
+                </Button>
+              )}
+            </HStack>
+          </Container>
+          <Container
+            boxShadow="lg"
+            borderRadius="lg"
+            mt={5}
+            bg="white"
+            p={10}
+            maxW={{ sm: "90%", md: "80%" }}
+          >
+            <Stack spacing={5}>
+              {!loaded && (
+                <Input
+                  eventText={eventText}
+                  setEventText={setEventText}
+                  thoughtText={thoughtText}
+                  setThoughtText={setThoughtText}
+                  analyse={analyse}
+                  loading={loading}
+                />
+              )}
+            </Stack>
+            {loaded && <Distortions response={response} />}
+          </Container>
         </Container>
       </>
     );

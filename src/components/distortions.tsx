@@ -3,6 +3,8 @@ import {
   Heading,
   Link,
   Spacer,
+  Box,
+  SimpleGrid,
   Show,
   Badge,
   Stack,
@@ -16,22 +18,16 @@ import Distortion from "./distortion";
 export default function Distortions({ response }: { response: any }) {
   return (
     <Stack spacing={3}>
-      <Heading size="sm">
-        Cognitive Distortions{" "}
-        <Link
-          href="https://en.wikipedia.org/wiki/Cognitive_distortion#Main_types"
-          target="blank"
-          textDecoration="underline"
-        >
-          (what is this?)
-        </Link>
-      </Heading>
-
-      {Object.entries(response.step1.distortions).map(([key, val], i) => {
-        return (
-          <Distortion key={i} data={{ key, val, spans: response.step2[key] }} />
-        );
-      })}
+      <SimpleGrid minChildWidth="300px" spacing="20px">
+        {Object.entries(response.step1.distortions).map(([key, val], i) => {
+          return (
+            <Distortion
+              key={i}
+              data={{ key, val, spans: response.step2[key] }}
+            />
+          );
+        })}
+      </SimpleGrid>
     </Stack>
   );
 }

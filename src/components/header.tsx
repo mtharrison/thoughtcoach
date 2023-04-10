@@ -5,9 +5,14 @@ import * as constants from "../constants";
 
 export default function Header() {
   return (
-    <Flex w="100%" alignItems="center" gap="2" py={5}>
-      <Link as={NextLink} href="/">
-        <Heading size="lg">
+    <Flex alignItems="center" gap="2" p={3} mb={5}>
+      <Link
+        textAlign={{ sm: "center", md: "left" }}
+        w={{ sm: "100%", md: "auto" }}
+        as={NextLink}
+        href="/"
+      >
+        <Heading size="xl" color="headingColor">
           {constants.site.name}{" "}
           <Badge p={1} colorScheme="purple">
             BETA
@@ -17,13 +22,31 @@ export default function Header() {
 
       <Spacer />
       <Show above="md">
-        <Link as={NextLink} href="/about">
+        <Link
+          color="headingColor"
+          px={2}
+          textDecoration="underline"
+          as={NextLink}
+          href="/about"
+        >
           About
         </Link>
-        <Link as={NextLink} href="/privacy">
+        <Link
+          color="headingColor"
+          px={2}
+          textDecoration="underline"
+          as={NextLink}
+          href="/privacy"
+        >
           Privacy
         </Link>
-        <Link as={NextLink} href="/contact">
+        <Link
+          color="headingColor"
+          px={2}
+          textDecoration="underline"
+          as={NextLink}
+          href="/contact"
+        >
           Contact
         </Link>
       </Show>

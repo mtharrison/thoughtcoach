@@ -22,12 +22,16 @@ const fonts = {
 const styles = {
   global: () => ({
     body: {
-      bg: "#E3E3EC",
+      bg: "#CAC0E4",
     },
   }),
 };
 
-const theme = extendTheme({ breakpoints, fonts, styles });
+const colors = {
+  headingColor: "#CAC0E4",
+};
+
+const theme = extendTheme({ breakpoints, fonts, styles, colors });
 
 function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   return (
