@@ -109,6 +109,7 @@ export default function Home() {
           boxShadow="lg"
           borderRadius="lg"
           mt={5}
+          mb={40}
           bg={"gray.50"}
           rounded={"xl"}
           p={10}
