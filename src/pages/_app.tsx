@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-
+import { Analytics } from "@vercel/analytics/react";
 import { Comfortaa } from "next/font/google";
 
 const headerFont = Comfortaa({
@@ -42,6 +42,7 @@ function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
+      <Analytics />
     </ChakraProvider>
   );
 }
