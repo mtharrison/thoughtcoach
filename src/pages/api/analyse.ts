@@ -93,6 +93,8 @@ export default async function handler(
     completion2.data.choices[0].message?.content as string
   );
 
+  console.log({ body: req.body, res1, res2 });
+
   res.status(200).json({
     step1: res1,
     step2: res2,
