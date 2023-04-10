@@ -15,6 +15,12 @@ import * as constants from "../constants";
 
 import Distortion from "./distortion";
 
+interface res {
+  why: string;
+  reframe: string;
+  info: string;
+}
+
 export default function Distortions({ response }: { response: any }) {
   return (
     <Stack spacing={3}>
@@ -23,7 +29,12 @@ export default function Distortions({ response }: { response: any }) {
           return (
             <Distortion
               key={i}
-              data={{ key, why: val.why, reframe: val.reframe, info: val.info }}
+              data={{
+                key,
+                why: (val as res).why,
+                reframe: (val as res).reframe,
+                info: (val as res).info,
+              }}
             />
           );
         })}
