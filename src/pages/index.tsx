@@ -166,7 +166,13 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container p={0} h="100%" w="100%" maxW="100%">
-          <Alert isOpen={error != ""} message={error}></Alert>
+          <Alert
+            isOpen={error != ""}
+            dialogClose={() => {
+              setError("");
+              setLoading(false);
+            }}
+          ></Alert>
           <Box p={3} bg="headerBlockColor">
             <Header />
             <Container
