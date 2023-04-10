@@ -6,6 +6,8 @@ import {
   Show,
   Badge,
   Box,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Image from "next/image";
@@ -17,24 +19,25 @@ import * as constants from "../constants";
 
 export default function Header() {
   return (
-    <Flex alignItems="center" gap="2" p={3} mb={5}>
-      <Image src={mypic} alt="Logo" width={100} height={100} />
-      <Link
-        textAlign={{ sm: "center", md: "left" }}
-        w={{ sm: "100%", md: "auto" }}
-        as={NextLink}
-        href="/"
-      >
-        <Heading size="xl" color="headingColor1">
-          {constants.site.name}{" "}
-          <Badge p={1} colorScheme="blue">
-            BETA
-          </Badge>
-        </Heading>
-      </Link>
+    <Wrap justify="space-between">
+      <WrapItem alignItems="center">
+        <Image src={mypic} alt="Logo" width={100} height={100} />
+        <Link
+          textAlign={{ sm: "center", md: "left" }}
+          w={{ sm: "100%", md: "auto" }}
+          as={NextLink}
+          href="/"
+        >
+          <Heading size="xl" color="headingColor1">
+            {constants.site.name}{" "}
+            <Badge p={1} colorScheme="blue">
+              BETA
+            </Badge>
+          </Heading>
+        </Link>
+      </WrapItem>
 
-      <Spacer />
-      <Show above="md">
+      <WrapItem height="fit-content" p={5}>
         {/* <Link
           color="headingColor2"
           px={2}
@@ -53,16 +56,28 @@ export default function Header() {
         >
           Privacy
         </Link> */}
+
         <Link
           color="headingColor"
           px={2}
+          textDecoration="underline"
+          fontWeight={"bold"}
+          as={NextLink}
+          href="https://www.patreon.com/ThoughtCoach/membership"
+        >
+          Sponsor Development
+        </Link>
+        <Link
+          color="headingColor"
+          px={2}
+          fontWeight={"bold"}
           textDecoration="underline"
           as={NextLink}
           href="/contact"
         >
           Contact
         </Link>
-      </Show>
-    </Flex>
+      </WrapItem>
+    </Wrap>
   );
 }
