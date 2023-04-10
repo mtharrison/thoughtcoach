@@ -8,6 +8,10 @@ import {
   Box,
   Wrap,
   WrapItem,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Image from "next/image";

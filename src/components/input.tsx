@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import * as constants from "../constants";
 
 import Distortion from "./distortion";
+import { useState } from "react";
 
 export default function Input({
   eventText,
@@ -20,6 +21,22 @@ export default function Input({
   analyse: any;
   loading: boolean;
 }) {
+  const [reqTime, setReqTime] = useState(0);
+  const [localLoading, setLocalLoading] = useState(false);
+
+  const goAnalyse = async () => {
+    setLocalLoading(true);
+    const then = Date.now();
+    const handle = setInterval(() => {
+      setReqTime(Date.now() - then);
+
+      console.log(localLoading);
+    }, 500);
+
+    await analyse();
+    // setLocalLoading(false);
+  };
+
   return (
     <>
       <Box>
@@ -67,7 +84,8 @@ export default function Input({
       />
       <Button
         isLoading={loading}
-        onClick={analyse}
+        loadingText={`${reqTime / 1000}s`}
+        onClick={goAnalyse}
         colorScheme="blue"
         bg="highlight"
         size="md"

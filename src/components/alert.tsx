@@ -30,6 +30,7 @@ export default function Alert({
         isCentered={true}
         isOpen={isOpen}
         //@ts-ignore
+        size={"xl"}
         //@ts-ignore
         onClose={dialogClose}
       >
@@ -41,7 +42,8 @@ export default function Alert({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Close this dialog box and try to submit again
+              This is a known issue that we're working to resolve. Close this
+              dialog box and try to submit your request again.
             </AlertDialogBody>
 
             <AlertDialogFooter>

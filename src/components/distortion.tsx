@@ -13,11 +13,10 @@ import {
 import * as constants from "../constants";
 
 export default function Distortion({ data }: { data: any }) {
-  console.log(data);
   return (
     <Card
       // @ts-ignore
-      borderTopColor={constants.site.distortions[data.key]}
+      borderTopColor={constants.site.distortions[data.key].color}
       borderTopWidth="10px"
       borderTopRadius="lg"
       boxShadow="lg"
@@ -46,9 +45,10 @@ export default function Distortion({ data }: { data: any }) {
       </CardBody>
       <Divider />
       <CardFooter>
-        <Button size="sm" colorScheme="gray">
+        <Button size="sm" colorScheme="blue">
           <Link
-            href="https://en.wikipedia.org/wiki/Cognitive_distortion#Main_types"
+            // @ts-ignore
+            href={constants.site.distortions[data.key].link as string}
             target="blank"
           >
             Read more
