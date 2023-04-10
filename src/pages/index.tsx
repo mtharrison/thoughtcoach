@@ -4,23 +4,10 @@ import { Inter } from "next/font/google";
 import {
   Container,
   Button,
-  Grid,
-  GridItem,
-  Text,
   Stack,
   Box,
-  Textarea,
   HStack,
-  Link,
-  Hide,
-  Card,
-  CardBody,
   Heading,
-  Divider,
-  CardFooter,
-  Spacer,
-  Flex,
-  ButtonGroup,
 } from "@chakra-ui/react";
 
 import Header from "../components/header";
@@ -31,6 +18,7 @@ import { use, useState } from "react";
 import * as constants from "../constants";
 import Reframe from "@/components/reframe";
 import Input from "@/components/input";
+import Alert from "@/components/alert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,6 +31,7 @@ export default function Home() {
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== "false"
   );
+  const [error, setError] = useState("");
 
   const showExample = function () {
     setEventText(constants.site.example.event);
@@ -62,8 +51,9 @@ export default function Home() {
       setLoaded(true);
       setLoading(false);
       setResponse(data);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      setError(err.toString());
     }
   };
 
@@ -84,6 +74,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container p={0} h="100%" w="100%" maxW="100%">
+          <Alert isOpen={error != ""} message={error}></Alert>
           <Box p={3} bg="#554480">
             <Header />
             <Container
@@ -120,7 +111,7 @@ export default function Home() {
                   w="4xs"
                   onClick={showExample}
                 >
-                  I don't get it, show me an example
+                  Show me an example
                 </Button>
               )}
             </HStack>

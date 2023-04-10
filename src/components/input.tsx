@@ -60,9 +60,9 @@ export default function Input({
         onClick={analyse}
         colorScheme="blue"
         size="md"
-        w="xs"
+        w="auto"
       >
-        Ok, I'm ready for some feedback
+        Submit
       </Button>
     </>
   );
