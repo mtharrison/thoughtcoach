@@ -39,6 +39,9 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
+  const [maintenance, setMaintenance] = useState(
+    process.env.NEXT_PUBLIC_MAINTENANCE !== "false"
+  );
 
   const showExample = function () {
     setEventText(constants.site.example.event);
@@ -70,22 +73,83 @@ export default function Home() {
     setResponse(null);
   };
 
-  return (
-    <>
-      <Head>
-        <title>{constants.site.name}</title>
-        <meta name="description" content={constants.site.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container
-        maxW="80rem"
-        justifyContent="center"
-        height="100vh"
-        centerContent
-      >
-        <Heading>Down for Maintenance</Heading>
-      </Container>
-    </>
-  );
+  const renderActive = () => {
+    return (
+      <>
+        <Head>
+          <title>{constants.site.name}</title>
+          <meta name="description" content={constants.site.description} />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container maxW="80rem">
+          <Header />
+          <HStack>
+            <Button onClick={restart} colorScheme="blue" size="sm" w="4xs">
+              Start again
+            </Button>
+            <Button
+              variant="outline"
+              colorScheme="blue"
+              size="sm"
+              w="4xs"
+              onClick={showExample}
+            >
+              I don't get it, show me an example
+            </Button>
+          </HStack>
+          <Grid w="100%" templateColumns="50% 1fr" mt="5" gap={5}>
+            <GridItem
+              borderRadius="md"
+              boxShadow="lg"
+              bg="white"
+              p={5}
+              colSpan={{ sm: 2, lg: 1 }}
+            >
+              <Stack spacing={5}>
+                {loaded && <Reframe response={response} />}
+                {!loaded && (
+                  <Input
+                    eventText={eventText}
+                    setEventText={setEventText}
+                    thoughtText={thoughtText}
+                    setThoughtText={setThoughtText}
+                    analyse={analyse}
+                    loading={loading}
+                  />
+                )}
+              </Stack>
+            </GridItem>
+            <GridItem borderRadius="md" colSpan={{ sm: 2, lg: 1 }}>
+              {loaded && <Distortions response={response} />}
+            </GridItem>
+          </Grid>
+        </Container>
+      </>
+    );
+  };
+
+  const renderMaintenance = () => {
+    return (
+      <>
+        <Head>
+          <title>{constants.site.name}</title>
+          <meta name="description" content={constants.site.description} />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Container justifyContent="center" centerContent h="100vh" maxW="80rem">
+          <Heading>
+            This app is down for maintenance until further notice.
+          </Heading>
+        </Container>
+      </>
+    );
+  };
+
+  if (maintenance) {
+    return renderMaintenance();
+  }
+
+  return renderActive();
 }
