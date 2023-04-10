@@ -25,7 +25,9 @@ export default function Input({
       <Box>
         <Flex gap={5}>
           <Box>
-            <Text fontSize="xl">What happened?</Text>
+            <Text fontWeight={"bold"} fontSize="xl">
+              What happened?
+            </Text>
             <Text fontSize="sm">
               Try to explain in as much detail as you can an event that occured
               that led you to have negative emotions. Explain like you would to
@@ -39,9 +41,14 @@ export default function Input({
         isDisabled={loading}
         onChange={(ev) => setEventText(ev.target.value)}
         value={eventText}
+        bg={"gray.100"}
+        border={0}
+        color={"gray.700"}
       />
       <Box>
-        <Text fontSize="xl">What was the automatic negative thought?</Text>
+        <Text fontWeight={"bold"} fontSize="xl">
+          What was the automatic negative thought?
+        </Text>
         <Text fontSize="sm">
           Often following a difficult situation we tell ourselves a negative
           story, dig deep to uncover your self-talk following the event. It
@@ -52,6 +59,9 @@ export default function Input({
       <Textarea
         isDisabled={loading}
         minH={170}
+        bg={"gray.100"}
+        border={0}
+        color={"gray.700"}
         onChange={(ev) => setThoughtText(ev.target.value)}
         value={thoughtText}
       />
@@ -59,11 +69,15 @@ export default function Input({
         isLoading={loading}
         onClick={analyse}
         colorScheme="blue"
+        bg="highlight"
         size="md"
         w="auto"
       >
         Submit
       </Button>
+      {loading && (
+        <Text>Response can take up to a minute, please be patient</Text>
+      )}
     </>
   );
 }

@@ -22,13 +22,18 @@ const fonts = {
 const styles = {
   global: () => ({
     body: {
-      bg: "#CAC0E4",
+      bg: "#FFFCF2",
     },
   }),
 };
 
 const colors = {
-  headingColor: "#F4F2FB",
+  headerBlockColor: "#FFFCF2",
+  headingColor1: "#252422",
+  headingColor2: "#69645e",
+  containerBgColor: "#FFFFFF",
+  textarea: "#FFFFFF",
+  highlight: "#CB4967",
 };
 
 const theme = extendTheme({ breakpoints, fonts, styles, colors });

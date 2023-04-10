@@ -6,6 +6,7 @@ import {
   Button,
   Stack,
   Box,
+  Highlight,
   HStack,
   Heading,
 } from "@chakra-ui/react";
@@ -19,6 +20,7 @@ import * as constants from "../constants";
 import Reframe from "@/components/reframe";
 import Input from "@/components/input";
 import Alert from "@/components/alert";
+import Disclaimer from "@/components/disclaimer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +30,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
+  const [disclaimerAccepted, setDisclaimedAccepted] = useState(false);
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== "false"
   );
@@ -64,6 +67,71 @@ export default function Home() {
     setResponse(null);
   };
 
+  const mainBody = () => {
+    if (!disclaimerAccepted) {
+      return (
+        <Container rounded={"xl"} p={0} maxW={{ sm: "90%", md: "80%" }}>
+          <Disclaimer
+            disclaimerAccepted={disclaimerAccepted}
+            setDisclaimerAccepted={setDisclaimedAccepted}
+          ></Disclaimer>
+        </Container>
+      );
+    }
+
+    return (
+      <>
+        <Container rounded={"xl"} p={0} maxW={{ sm: "90%", md: "80%" }}>
+          <HStack
+            boxShadow="lg"
+            borderRadius="lg"
+            w="fit-content"
+            p={5}
+            bg={"gray.50"}
+          >
+            <Button onClick={restart} colorScheme="blue" size="sm">
+              Start again
+            </Button>
+            {!loaded && (
+              <Button
+                variant="outline"
+                colorScheme="blue"
+                size="sm"
+                w="4xs"
+                onClick={showExample}
+              >
+                Show me an example
+              </Button>
+            )}
+          </HStack>
+        </Container>
+        <Container
+          boxShadow="lg"
+          borderRadius="lg"
+          mt={5}
+          bg={"gray.50"}
+          rounded={"xl"}
+          p={10}
+          maxW={{ sm: "90%", md: "80%" }}
+        >
+          <Stack spacing={5}>
+            {!loaded && (
+              <Input
+                eventText={eventText}
+                setEventText={setEventText}
+                thoughtText={thoughtText}
+                setThoughtText={setThoughtText}
+                analyse={analyse}
+                loading={loading}
+              />
+            )}
+          </Stack>
+          {loaded && <Distortions response={response} />}
+        </Container>
+      </>
+    );
+  };
+
   const renderActive = () => {
     return (
       <>
@@ -75,20 +143,7 @@ export default function Home() {
         </Head>
         <Container p={0} h="100%" w="100%" maxW="100%">
           <Alert isOpen={error != ""} message={error}></Alert>
-          <Box
-            p={3}
-            bg="linear-gradient(
-    210deg,
-    #554480,
-    #584789,
-    #5b4a93,
-    #5d4e9d,
-    #5f51a7,
-    #6155b1,
-    #6258bb,
-    #635cc6
-  ) !important;"
-          >
+          <Box p={3} bg="headerBlockColor">
             <Header />
             <Container
               maxW={{ sm: "100%", md: "60%" }}
@@ -97,60 +152,32 @@ export default function Home() {
               mb={10}
             >
               <Heading
-                color="headingColor"
+                color="headingColor1"
                 textAlign="center"
-                lineHeight="10"
+                lineHeight="tall"
                 size="xl"
               >
-                Change your perspective, change your world: The app that helps
-                you reframe negative thoughts.
+                <Highlight
+                  query={["perspective", "life"]}
+                  styles={{
+                    color: "highlight",
+                  }}
+                >
+                  Change your perspective, change your life
+                </Highlight>
+              </Heading>
+              <Heading
+                color="headingColor2"
+                textAlign="center"
+                lineHeight="10"
+                size="md"
+                mt={3}
+              >
+                The simple app that helps you to reframe negative thoughts
               </Heading>
             </Container>
           </Box>
-          <Container>
-            <HStack
-              justifyContent="flex-end"
-              my={5}
-              maxW={{ sm: "90%", md: "80%" }}
-            >
-              <Button onClick={restart} colorScheme="blue" size="sm" w="4xs">
-                Start again
-              </Button>
-              {!loaded && (
-                <Button
-                  variant="outline"
-                  colorScheme="blue"
-                  size="sm"
-                  w="4xs"
-                  onClick={showExample}
-                >
-                  Show me an example
-                </Button>
-              )}
-            </HStack>
-          </Container>
-          <Container
-            boxShadow="lg"
-            borderRadius="lg"
-            mt={5}
-            bg="white"
-            p={10}
-            maxW={{ sm: "90%", md: "80%" }}
-          >
-            <Stack spacing={5}>
-              {!loaded && (
-                <Input
-                  eventText={eventText}
-                  setEventText={setEventText}
-                  thoughtText={thoughtText}
-                  setThoughtText={setThoughtText}
-                  analyse={analyse}
-                  loading={loading}
-                />
-              )}
-            </Stack>
-            {loaded && <Distortions response={response} />}
-          </Container>
+          {mainBody()}
         </Container>
       </>
     );
