@@ -14,7 +14,7 @@ import {
 import Header from "../components/header";
 import Distortions from "../components/distortions";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 
 import * as constants from "../constants";
 import Reframe from "@/components/reframe";
@@ -35,6 +35,29 @@ export default function Home() {
     process.env.NEXT_PUBLIC_MAINTENANCE !== "false"
   );
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const existingEvent = localStorage.getItem("eventText") || "";
+    const existingThought = localStorage.getItem("thoughtText") || "";
+
+    if (eventText === "" && existingEvent !== "") {
+      setEventText(existingEvent);
+    }
+
+    if (thoughtText === "" && existingThought !== "") {
+      setThoughtText(existingThought);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (eventText !== "") {
+      localStorage.setItem("eventText", eventText);
+    }
+
+    if (thoughtText !== "") {
+      localStorage.setItem("thoughtText", thoughtText);
+    }
+  }, [eventText, thoughtText]);
 
   const showExample = function () {
     setEventText(constants.site.example.event);
