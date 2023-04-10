@@ -28,7 +28,7 @@ const styles = {
 };
 
 const colors = {
-  headingColor: "#CAC0E4",
+  headingColor: "#F4F2FB",
 };
 
 const theme = extendTheme({ breakpoints, fonts, styles, colors });

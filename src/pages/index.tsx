@@ -75,7 +75,20 @@ export default function Home() {
         </Head>
         <Container p={0} h="100%" w="100%" maxW="100%">
           <Alert isOpen={error != ""} message={error}></Alert>
-          <Box p={3} bg="#554480">
+          <Box
+            p={3}
+            bg="linear-gradient(
+    210deg,
+    #554480,
+    #584789,
+    #5b4a93,
+    #5d4e9d,
+    #5f51a7,
+    #6155b1,
+    #6258bb,
+    #635cc6
+  ) !important;"
+          >
             <Header />
             <Container
               maxW={{ sm: "100%", md: "60%" }}
