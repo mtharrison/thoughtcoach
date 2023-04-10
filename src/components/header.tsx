@@ -35,7 +35,7 @@ export default function Header() {
 
       <Spacer />
       <Show above="md">
-        <Link
+        {/* <Link
           color="headingColor2"
           px={2}
           textDecoration="underline"
@@ -43,8 +43,8 @@ export default function Header() {
           href="/about"
         >
           About
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           color="headingColor"
           px={2}
           textDecoration="underline"
@@ -52,7 +52,7 @@ export default function Header() {
           href="/privacy"
         >
           Privacy
-        </Link>
+        </Link> */}
         <Link
           color="headingColor"
           px={2}
