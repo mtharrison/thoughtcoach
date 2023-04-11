@@ -1,5 +1,6 @@
 export const site = {
   name: "Thought Coach",
+  sponsorship: false,
   domain: "thoughtcoach.app",
   description: "Helping you to think rationally",
   example: {

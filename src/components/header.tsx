@@ -61,16 +61,18 @@ export default function Header() {
           Privacy
         </Link> */}
 
-        <Link
-          color="headingColor"
-          px={2}
-          textDecoration="underline"
-          fontWeight={"bold"}
-          as={NextLink}
-          href="https://www.patreon.com/ThoughtCoach/membership"
-        >
-          Sponsor Development
-        </Link>
+        {constants.site.sponsorship && (
+          <Link
+            color="headingColor"
+            px={2}
+            textDecoration="underline"
+            fontWeight={"bold"}
+            as={NextLink}
+            href="https://www.patreon.com/ThoughtCoach/membership"
+          >
+            Sponsor Development
+          </Link>
+        )}
         <Link
           color="headingColor"
           px={2}
