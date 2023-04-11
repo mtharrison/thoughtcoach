@@ -28,12 +28,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           ></Alert>
           <Box p={3} bg="headerBlockColor">
             <Header />
-            <Container
-              maxW={{ sm: '100%', md: '60%' }}
-              centerContent
-              mt={10}
-              mb={10}
-            >
+            <Container centerContent mt={10} mb={10}>
               <Heading
                 color="headingColor1"
                 textAlign="center"

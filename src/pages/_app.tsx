@@ -45,7 +45,7 @@ const Container = defineStyleConfig({
   // Two sizes: sm and md
   sizes: {
     sm: {
-      maxW: '90%',
+      maxW: '100%',
     },
     md: {
       maxW: '80%',
@@ -69,12 +69,13 @@ const Container = defineStyleConfig({
       rounded: 'md',
       maxW: 'fit-content',
       p: 5,
+      justifyItems: 'flex-start',
     },
     normal: {},
   },
   // The default size and variant values
   defaultProps: {
-    size: 'sm',
+    size: 'md',
     variant: 'normal',
   },
 });
