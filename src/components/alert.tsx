@@ -1,21 +1,14 @@
 import {
   AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  Button,
-  AlertDialogHeader,
-  useDisclosure,
-  AlertDialogCloseButton,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
-  CardFooter,
-} from "@chakra-ui/react";
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+} from '@chakra-ui/react';
 
-import { PhoneIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
-
-import { useRef } from "react";
-
-import * as constants from "../constants";
+import { WarningIcon } from '@chakra-ui/icons';
 
 export default function Alert({
   isOpen,
@@ -30,7 +23,7 @@ export default function Alert({
         isCentered={true}
         isOpen={isOpen}
         //@ts-ignore
-        size={"xl"}
+        size={'xl'}
         //@ts-ignore
         onClose={dialogClose}
       >

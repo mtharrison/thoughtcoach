@@ -1,16 +1,16 @@
 import {
-  Heading,
-  Link,
+  Button,
   Card,
   CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  Link,
   Stack,
   Text,
-  Divider,
-  Button,
-  CardFooter,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
-import * as constants from "../constants";
+import * as constants from '../constants';
 
 export default function Distortion({ data }: { data: any }) {
   return (

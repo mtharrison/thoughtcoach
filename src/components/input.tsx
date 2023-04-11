@@ -1,10 +1,6 @@
-import { Flex, Box, Text, Textarea, Button } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Box, Button, Flex, Text, Textarea } from '@chakra-ui/react';
 
-import * as constants from "../constants";
-
-import Distortion from "./distortion";
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function Input({
   eventText,
@@ -42,7 +38,7 @@ export default function Input({
       <Box>
         <Flex gap={5}>
           <Box>
-            <Text fontWeight={"bold"} fontSize="xl">
+            <Text fontWeight={'bold'} fontSize="xl">
               What happened?
             </Text>
             <Text fontSize="sm">
@@ -58,12 +54,12 @@ export default function Input({
         isDisabled={loading}
         onChange={(ev) => setEventText(ev.target.value)}
         value={eventText}
-        bg={"gray.100"}
+        bg={'gray.100'}
         border={0}
-        color={"gray.700"}
+        color={'gray.700'}
       />
       <Box>
-        <Text fontWeight={"bold"} fontSize="xl">
+        <Text fontWeight={'bold'} fontSize="xl">
           What was the automatic negative thought?
         </Text>
         <Text fontSize="sm">
@@ -76,9 +72,9 @@ export default function Input({
       <Textarea
         isDisabled={loading}
         minH={170}
-        bg={"gray.100"}
+        bg={'gray.100'}
         border={0}
-        color={"gray.700"}
+        color={'gray.700'}
         onChange={(ev) => setThoughtText(ev.target.value)}
         value={thoughtText}
       />

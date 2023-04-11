@@ -5,7 +5,7 @@ import Header from '../components/header';
 
 import * as constants from '../constants';
 
-export default function Privacy() {
+export default function CognitiveDistortions() {
   return (
     <>
       <Head>
@@ -17,13 +17,14 @@ export default function Privacy() {
       <Container maxW="80rem">
         <Header />
         <Text>
-          We don't save, log or cache your inputs so we have no idea what you
-          share with this app. However as we leverage OpenAI's API we cannot
-          speak to their data retention and reuse policies. Take a look at their
-          privacy policy here:{' '}
-          <Link href="https://openai.com/policies/privacy-policy">
-            https://openai.com/policies/privacy-policy
-          </Link>
+          For any feedback please use the{' '}
+          <Link
+            textDecoration="underline"
+            href="https://forms.gle/f6kiJpADhrGi2SQSA"
+          >
+            Google Form here.
+          </Link>{' '}
+          Inlcude an email address if you would like a reply.
         </Text>
       </Container>
     </>

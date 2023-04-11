@@ -1,25 +1,9 @@
-import {
-  Flex,
-  Heading,
-  Link,
-  Spacer,
-  Show,
-  Badge,
-  Box,
-  Wrap,
-  WrapItem,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import Image from "next/image";
-import mypic from "../../public/logo.png";
+import { Badge, Heading, Link, Wrap, WrapItem } from '@chakra-ui/react';
+import Image from 'next/image';
+import NextLink from 'next/link';
+import mypic from '../../public/logo.png';
 
-import Disclaimer from "../components/disclaimer";
-
-import * as constants from "../constants";
+import * as constants from '../constants';
 
 export default function Header() {
   return (
@@ -27,13 +11,13 @@ export default function Header() {
       <WrapItem alignItems="center">
         <Image src={mypic} alt="Logo" width={100} height={100} />
         <Link
-          textAlign={{ sm: "center", md: "left" }}
-          w={{ sm: "100%", md: "auto" }}
+          textAlign={{ sm: 'center', md: 'left' }}
+          w={{ sm: '100%', md: 'auto' }}
           as={NextLink}
           href="/"
         >
           <Heading size="xl" color="headingColor1">
-            {constants.site.name}{" "}
+            {constants.site.name}{' '}
             <Badge p={1} colorScheme="blue">
               BETA
             </Badge>
@@ -66,7 +50,7 @@ export default function Header() {
             color="headingColor"
             px={2}
             textDecoration="underline"
-            fontWeight={"bold"}
+            fontWeight={'bold'}
             as={NextLink}
             href="https://www.patreon.com/ThoughtCoach/membership"
           >
@@ -76,7 +60,7 @@ export default function Header() {
         <Link
           color="headingColor"
           px={2}
-          fontWeight={"bold"}
+          fontWeight={'bold'}
           textDecoration="underline"
           as={NextLink}
           href="/contact"

@@ -1,9 +1,9 @@
-import Head from "next/head";
-import { Container, Text } from "@chakra-ui/react";
+import { Container, Text } from '@chakra-ui/react';
+import Head from 'next/head';
 
-import Header from "../components/header";
+import Header from '../components/header';
 
-import * as constants from "../constants";
+import * as constants from '../constants';
 
 export default function About() {
   return (

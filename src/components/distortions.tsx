@@ -1,19 +1,6 @@
-import {
-  Flex,
-  Heading,
-  Link,
-  Spacer,
-  Box,
-  SimpleGrid,
-  Show,
-  Badge,
-  Stack,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
+import { SimpleGrid, Stack } from '@chakra-ui/react';
 
-import * as constants from "../constants";
-
-import Distortion from "./distortion";
+import Distortion from './distortion';
 
 interface res {
   why: string;
@@ -24,7 +11,7 @@ interface res {
 export default function Distortions({ response }: { response: any }) {
   return (
     <Stack spacing={3}>
-      <SimpleGrid minChildWidth={{ sm: "300px", md: "300px" }} spacing="20px">
+      <SimpleGrid minChildWidth={{ sm: '300px', md: '300px' }} spacing="20px">
         {Object.entries(response.distortions).map(([key, val], i) => {
           return (
             <Distortion
