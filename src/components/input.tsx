@@ -1,7 +1,5 @@
 import { Box, Button, Flex, Text, Textarea } from '@chakra-ui/react';
 
-import { useState } from 'react';
-
 export default function Input({
   eventText,
   thoughtText,
@@ -17,22 +15,6 @@ export default function Input({
   analyse: any;
   loading: boolean;
 }) {
-  const [reqTime, setReqTime] = useState(0);
-  const [localLoading, setLocalLoading] = useState(false);
-
-  const goAnalyse = async () => {
-    setLocalLoading(true);
-    const then = Date.now();
-    const handle = setInterval(() => {
-      setReqTime(Date.now() - then);
-
-      console.log(localLoading);
-    }, 500);
-
-    await analyse();
-    // setLocalLoading(false);
-  };
-
   return (
     <>
       <Box>
@@ -80,8 +62,7 @@ export default function Input({
       />
       <Button
         isLoading={loading}
-        loadingText={`${reqTime / 1000}s`}
-        onClick={goAnalyse}
+        onClick={analyse}
         colorScheme="blue"
         bg="highlight"
         size="md"

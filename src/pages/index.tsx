@@ -1,13 +1,34 @@
 import { Button, Container, HStack, Heading, Stack } from '@chakra-ui/react';
 
-import Distortions from '../components/distortions';
-
+import { AnalyseResponse, DistortionConfig, DistortionsProps } from '@/types';
 import { useEffect, useState } from 'react';
+import { Distortions } from '../components/distortions';
 
 import Disclaimer from '@/components/disclaimer';
 import Input from '@/components/input';
 import Layout from '@/components/layout';
 import * as constants from '../constants';
+
+const marshalDistortions = (response: AnalyseResponse): DistortionsProps => {
+  return {
+    distortions: Object.entries(response.distortions).map(([key, val]) => {
+      const d: DistortionConfig = constants.site.distortions[key];
+      return {
+        name: key,
+        link: d.link,
+        color: d.color,
+        sections: [
+          { heading: 'What is it?', body: val.info },
+          { heading: 'Where might I have used it?', body: val.why },
+          {
+            heading: "What's another way to think about it?",
+            body: val.reframe,
+          },
+        ],
+      };
+    }),
+  };
+};
 
 export default function Home() {
   const [eventText, setEventText] = useState('');
@@ -25,11 +46,11 @@ export default function Home() {
     const existingEvent = localStorage.getItem('eventText') || '';
     const existingThought = localStorage.getItem('thoughtText') || '';
 
-    if (eventText === '' && existingEvent !== '') {
+    if (existingEvent !== '') {
       setEventText(existingEvent);
     }
 
-    if (thoughtText === '' && existingThought !== '') {
+    if (existingThought !== '') {
       setThoughtText(existingThought);
     }
   }, []);
@@ -91,8 +112,13 @@ export default function Home() {
       <>
         <Container variant={'min'}>
           <HStack>
-            <Button onClick={restart} colorScheme="blue" size="sm">
-              Clear Input
+            <Button
+              disabled={loading}
+              onClick={restart}
+              colorScheme="blue"
+              size="sm"
+            >
+              Start again
             </Button>
             {!loaded && (
               <Button
@@ -120,7 +146,11 @@ export default function Home() {
               />
             )}
           </Stack>
-          {loaded && <Distortions response={response} />}
+          {loaded && (
+            <Distortions
+              {...marshalDistortions(response as unknown as AnalyseResponse)}
+            />
+          )}
         </Container>
       </>
     );

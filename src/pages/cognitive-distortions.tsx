@@ -1,32 +1,50 @@
-import { Container, Link, Text } from '@chakra-ui/react';
-import Head from 'next/head';
+import Layout from '@/components/layout';
+import { Container, Heading, Text } from '@chakra-ui/react';
 
-import Header from '../components/header';
-
+import { Distortions } from '@/components/distortions';
+import { DistortionsProps } from '@/types';
 import * as constants from '../constants';
+
+function marshalDistortions(reference: any): DistortionsProps {
+  return {
+    distortions: Object.entries(constants.site.distortions).map(
+      ([key, val]) => {
+        return {
+          name: key,
+          link: val.link,
+          color: val.color,
+          sections: [
+            { heading: 'What is it?', body: val.description },
+            { heading: 'An example', body: val.example },
+          ],
+        };
+      }
+    ),
+  };
+}
 
 export default function CognitiveDistortions() {
   return (
-    <>
-      <Head>
-        <title>{constants.site.name}</title>
-        <meta name="description" content={constants.site.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container maxW="80rem">
-        <Header />
-        <Text>
-          For any feedback please use the{' '}
-          <Link
-            textDecoration="underline"
-            href="https://forms.gle/f6kiJpADhrGi2SQSA"
-          >
-            Google Form here.
-          </Link>{' '}
-          Inlcude an email address if you would like a reply.
+    <Layout>
+      <Container variant={'main'}>
+        <Heading mb={5} size={'lg'}>
+          What are Cognitive Distortions?
+        </Heading>
+        <Text mb={5} size={'sm'}>
+          Cognitive distortions are irrational, exaggerated, or unhelpful
+          thought patterns that have the potential to negatively impact our
+          mental and emotional well-being. These thinking patterns tend to be
+          automatic in nature and can lead to distorted interpretations of
+          events or experiences, resulting in heightened distress, anxiety, or
+          depressive symptoms. By recognizing and addressing these cognitive
+          distortions, individuals can gradually improve their thinking patterns
+          and develop healthier, more balanced perspectives.
         </Text>
+        <Text mb={7} size={'sm'}>
+          Here are a list of common cognitive distortions with examples:
+        </Text>
+        <Distortions {...marshalDistortions(constants.site.distortions)} />
       </Container>
-    </>
+    </Layout>
   );
 }

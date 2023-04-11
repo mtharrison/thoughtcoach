@@ -45,6 +45,17 @@ export default function Header() {
           Privacy
         </Link> */}
 
+        <Link
+          color="headingColor"
+          px={2}
+          fontWeight={'bold'}
+          textDecoration="underline"
+          as={NextLink}
+          href="/cognitive-distortions"
+        >
+          Guide to Cognitive Distortions
+        </Link>
+
         {constants.site.sponsorship && (
           <Link
             color="headingColor"

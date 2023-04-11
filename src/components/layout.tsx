@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Container p={0} h="100%" w="100%" maxW="100%">
+        <Container p={0} pb={10} h="100%" w="100%" maxW="100%">
           <Alert
             isOpen={error != ''}
             dialogClose={() => {
