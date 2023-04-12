@@ -4,7 +4,6 @@ import { Distortions } from '../components/distortions';
 
 import { useEffect, useState } from 'react';
 
-import Disclaimer from '@/components/disclaimer';
 import Input from '@/components/input';
 import Layout from '@/components/layout';
 import { AnalyseResponse, DistortionsProps } from '@/types';
@@ -52,7 +51,6 @@ export default function Home() {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
-  const [disclaimerAccepted, setDisclaimedAccepted] = useState(false);
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== 'false'
   );
@@ -121,17 +119,6 @@ export default function Home() {
   };
 
   const mainBody = () => {
-    if (!disclaimerAccepted) {
-      return (
-        <Container rounded={'xl'} p={0} maxW={{ sm: '90%', md: '80%' }}>
-          <Disclaimer
-            disclaimerAccepted={disclaimerAccepted}
-            setDisclaimerAccepted={setDisclaimedAccepted}
-          ></Disclaimer>
-        </Container>
-      );
-    }
-
     return (
       <>
         <Container variant={'min'}>

@@ -1,14 +1,31 @@
 import { Box, Container, Heading, Highlight } from '@chakra-ui/react';
 import Head from 'next/head';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import * as constants from '../constants';
 
 import Alert from '@/components/alert';
 import Header from '@/components/header';
+import Disclaimer from '@/components/disclaimer';
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
+
+  useEffect(() => {
+    const accepted = sessionStorage.getItem('disclaimerAccepted') === 'true';
+    if (accepted) {
+      setDisclaimerAccepted(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      'disclaimerAccepted',
+      disclaimerAccepted ? 'true' : 'false'
+    );
+  }, [disclaimerAccepted]);
+
   return (
     <>
       <>
@@ -19,6 +36,12 @@ export default function Layout({ children }: { children: ReactNode }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container p={0} pb={10} h="100%" w="100%" maxW="100%">
+          <Container rounded={'xl'} p={0} maxW={{ sm: '90%', md: '80%' }}>
+            <Disclaimer
+              disclaimerAccepted={disclaimerAccepted}
+              setDisclaimerAccepted={setDisclaimerAccepted}
+            ></Disclaimer>
+          </Container>
           <Alert
             isOpen={error != ''}
             dialogClose={() => {

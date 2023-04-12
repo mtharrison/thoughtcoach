@@ -5,6 +5,13 @@ import {
   AlertTitle,
   Box,
   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
   CloseButton,
   Divider,
   Text,
@@ -19,11 +26,19 @@ export default function Disclaimer({
 }) {
   const onClose = () => setDisclaimerAccepted(true);
 
-  return !disclaimerAccepted ? (
-    <Alert mb={5} p={5} status="error" rounded={'md'}>
-      <Box>
-        <AlertTitle>DISCLAIMER</AlertTitle>
-        <AlertDescription>
+  return (
+    <Modal
+      closeOnEsc={false}
+      closeOnOverlayClick={false}
+      onClose={onClose}
+      isOpen={!disclaimerAccepted}
+      size={{ sm: 'md', md: '3xl' }}
+    >
+      <ModalOverlay backdropFilter="blur(4px)" />
+      <ModalContent bg="white">
+        <ModalHeader bg="">DISCLAIMER</ModalHeader>
+        <Divider></Divider>
+        <ModalBody>
           <Text mt={3} fontWeight="bold">
             THIS APPLICATION DOES NOT PROVIDE MEDICAL ADVICE.
           </Text>
@@ -43,25 +58,25 @@ export default function Disclaimer({
             and advice may not always be perfect or applicable to every
             situation. It does not equate to a therapist-patient relationship.
             If you are experiencing a mental health emergency, please contact
-            your local health provider immediately.
+            your local health provider immediately.{' '}
           </Text>
           <Text mt={4}>
             Any reliance you place on such information provided from this app is
             therefore strictly at your own risk. The creators of this app
             disclaim any liability for any damage or loss, including without
             limitation, indirect or consequential loss or damage, or any damage
-            or loss whatsoever arising from loss of data or profits arising out
-            of, or in connection with, the use of this app. By using this app,
-            you acknowledge that you have read and understood this legal
-            disclaimer and agree to be bound by its terms and conditions.
-          </Text>
-          <Button mt={5} colorScheme="red" onClick={onClose}>
-            Accept
+            or loss whatsoever arising from the use of this app. By accepting
+            this, you acknowledge that you have read and understood this legal
+            disclaimer and agree to be bound by its terms and conditions.{' '}
+          </Text>{' '}
+        </ModalBody>
+        <Divider mt={5}></Divider>
+        <ModalFooter>
+          <Button colorScheme="red" onClick={onClose}>
+            Accept{' '}
           </Button>
-        </AlertDescription>
-      </Box>
-    </Alert>
-  ) : (
-    <></>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
