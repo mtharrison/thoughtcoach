@@ -32,6 +32,7 @@ export default function Disclaimer({
       closeOnOverlayClick={false}
       onClose={onClose}
       isOpen={!disclaimerAccepted}
+      scrollBehavior={'inside'}
       size={{ sm: 'md', md: '3xl' }}
     >
       <ModalOverlay backdropFilter="blur(4px)" />
