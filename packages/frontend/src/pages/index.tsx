@@ -22,14 +22,11 @@ function marshalDistortions(response: AnalyseResponse): DistortionsProps {
         name: k,
         color: d.color,
         link: d.link,
+        spans: v.spans,
         sections: [
           {
             heading: 'What is it?',
             body: v.info,
-          },
-          {
-            heading: 'How might I have used it?',
-            body: v.why,
           },
           {
             heading: "What's another way to think about it?",

@@ -8,6 +8,7 @@ export interface DistortionProps {
   link: string;
   color: string;
   sections: DistortionSection[];
+  spans: string[];
 }
 
 export interface DistortionsProps {
@@ -28,7 +29,7 @@ export interface DistortionsConfig {
 export interface AnalyseResponse {
   distortions: {
     [key: string]: {
-      why: string;
+      spans: string[];
       info: string;
       reframe: string;
     };
