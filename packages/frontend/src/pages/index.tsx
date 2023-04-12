@@ -37,8 +37,6 @@ function marshalDistortions(response: AnalyseResponse): DistortionsProps {
     }),
   };
 
-  console.log(res);
-
   return res;
 }
 

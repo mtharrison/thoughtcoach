@@ -17,34 +17,35 @@ import {
 import { DistortionProps, DistortionsProps } from '@/types';
 
 export function Distortions(
-  props: DistortionsProps & { thought: string; event: string }
+  props: DistortionsProps & { thought?: string; event?: string }
 ) {
   const spans: string[] = [];
   const spanLookup: { [key: string]: { color: string; name: string } } = {};
 
   for (const d of props.distortions) {
-    for (const span of d.spans) {
-      spanLookup[span] = { color: d.color, name: d.name };
-      if (!spans.includes(span)) {
-        spans.push(span);
+    if (d.spans) {
+      for (const span of d.spans) {
+        spanLookup[span] = { color: d.color, name: d.name };
+        if (!spans.includes(span)) {
+          spans.push(span);
+        }
       }
     }
   }
 
   const chunks = useHighlight({
-    text: props.thought,
+    text: props.thought || '',
     query: spans,
   });
-
-  console.log(chunks);
 
   return (
     <Stack spacing={2}>
       <Heading size={'md'} lineHeight="10" borderTopRadius="lg" mb={5}>
-        {chunks.map(({ match, text }) => {
+        {chunks.map(({ match, text }, i) => {
           if (!match) return text;
           return (
             <Tooltip
+              key={i}
               rounded={'md'}
               label={'Possible ' + spanLookup[text].name}
               placement="top"
@@ -73,7 +74,6 @@ export function Distortions(
 }
 
 export default function Distortion(props: DistortionProps) {
-  console.log(props);
   return (
     <Card
       borderTopColor={props.color}

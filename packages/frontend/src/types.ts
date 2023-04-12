@@ -8,7 +8,7 @@ export interface DistortionProps {
   link: string;
   color: string;
   sections: DistortionSection[];
-  spans: string[];
+  spans?: string[];
 }
 
 export interface DistortionsProps {
