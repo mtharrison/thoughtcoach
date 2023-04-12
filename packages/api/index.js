@@ -1,16 +1,22 @@
+const {
+  ApiGatewayManagementApiClient,
+  PostToConnectionCommand,
+} = require('@aws-sdk/client-apigatewaymanagementapi');
+
 const { Configuration, OpenAIApi } = require('openai');
 
-const configuration = new Configuration({
-  apiKey: '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', // process.env.OPENAI_API_KEY,
-});
+const getCompletion = async (req) => {
+  const configuration = new Configuration({
+    apiKey: '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', // process.env.OPENAI_API_KEY,
+  });
 
-const openai = new OpenAIApi(configuration);
+  const openai = new OpenAIApi(configuration);
 
-const getCompletion = async (body) => {
   const steps = [
-    {
-      role: 'system',
-      content: `I will provide a story about an event that happened to me. 
+    [
+      {
+        role: 'system',
+        content: `I will provide a story about an event that happened to me. 
         I will also provide a thought I had about the event. 
         You will respond in JSON format as if talking to me. 
         The response should be an object with a property called 'distortions': each key is the name of the cognitive distortion at play, the value is an object with keys 'why', 'info' and 'reframe'. 
@@ -18,37 +24,70 @@ const getCompletion = async (body) => {
         'why' contains a description of how that distortion was at play and the text that was relevant from my input.
         'info' contains a short simple explanation of the cognitive distortion.
         'reframe' contains a healthier way to think about it.`,
-    },
-    {
-      content: (context) => {
-        return `Story:\n${context.eventText}\nThought:\n${context.thoughtText}\n`;
       },
-      role: 'user',
-    },
+      {
+        content: (context) => {
+          return `Story:\n${context.eventText}\nThought:\n${context.thoughtText}\n`;
+        },
+        role: 'user',
+      },
+    ],
   ];
 
-  const messages = steps.map((s) => {
+  const messages1 = steps[0].map((s) => {
     if (typeof s.content === 'function') {
       return {
         role: s.role,
-        content: s.content(JSON.parse(body)),
+        content: s.content(req),
       };
     }
 
     return s;
   });
 
-  const completion = await openai.createChatCompletion({
+  const completion1 = await openai.createChatCompletion({
     model: 'gpt-4',
-    messages: messages,
+    messages: messages1,
   });
 
-  return completion.data.choices;
+  return completion1.data.choices;
 };
 
 exports.completion = async (event) => {
+  // for offline usage we can simply use a response because we're not limited by api gateway timeout
+  // for dev/prd use we need to use the API gateway and post to the connnection after returning
+
+  const response = await getCompletion(JSON.parse(event.body));
+
+  if (process.env.IS_OFFLINE) {
+    return {
+      body: JSON.stringify(response),
+      statusCode: 200,
+    };
+  }
+
+  const domain = event.requestContext.domainName;
+  const stage = event.requestContext.stage;
+  const connectionId = event.requestContext.connectionId;
+  const callbackUrl = `https://${domain}/${stage}`;
+  const client = new ApiGatewayManagementApiClient({ endpoint: callbackUrl });
+
+  const requestParams = {
+    ConnectionId: connectionId,
+    Data: JSON.stringify(response),
+  };
+
+  const command = new PostToConnectionCommand(requestParams);
+
+  try {
+    await client.send(command);
+  } catch (error) {
+    return {
+      statusCode: 500,
+    };
+  }
+
   return {
-    body: JSON.stringify(await getCompletion(event.body)),
     statusCode: 200,
   };
 };

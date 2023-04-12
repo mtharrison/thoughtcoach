@@ -6,13 +6,14 @@
   "scripts": {
     "dev": "sls offline",
     "dev-deploy": "sls deploy --stage dev",
-    "prd-deploy": "sls deploy --stage prd",
+    "prd-deploy": "sls deploy --stage dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0",
     "openai": "^3.2.1"
   },
   "devDependencies": {
