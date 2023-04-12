@@ -1,0 +1,32 @@
+service: thought-coach-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  websocketsApiRouteSelectionExpression: '$request.body.route'
+
+functions:
+  connectHandler:
+    timeout: 180
+    handler: index.connect
+    events:
+      - websocket: $connect
+      - websocket: $disconnect
+  completion:
+    timeout: 180
+    handler: index.completion
+    events:
+      - websocket:
+          route: completion
+          routeResponseSelectionExpression: $default
+
+custom:
+  webpack:
+    includeModules:
+      packagePath: './package.json'
+  serverless-offline:
+    websocketPort: 3001
+    useInProcess: true
+plugins:
+  - serverless-offline
