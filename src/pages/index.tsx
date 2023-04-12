@@ -1,26 +1,24 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import {
-  Container,
-  Button,
-  Stack,
   Box,
-  Highlight,
+  Button,
+  Container,
   HStack,
   Heading,
+  Highlight,
+  Stack,
 } from "@chakra-ui/react";
+import { Inter } from "next/font/google";
+import Head from "next/head";
 
-import Header from "../components/header";
 import Distortions from "../components/distortions";
+import Header from "../components/header";
 
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 
-import * as constants from "../constants";
-import Reframe from "@/components/reframe";
-import Input from "@/components/input";
 import Alert from "@/components/alert";
 import Disclaimer from "@/components/disclaimer";
+import Input from "@/components/input";
+import * as constants from "../constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,29 +32,62 @@ export default function Home() {
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== "false"
   );
+  const [ws, setWs] = useState<WebSocket | null>(null);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const ws = new WebSocket(
+      "wss://bnu9qu2vxb.execute-api.us-east-1.amazonaws.com/dev"
+    );
+
+    ws.onopen = () => {
+      setWs(ws);
+    };
+    ws.onclose = () => console.log("close");
+    ws.onerror = (err) => console.log(err);
+
+    const existingEvent = localStorage.getItem("eventText") || "";
+    const existingThought = localStorage.getItem("thoughtText") || "";
+
+    if (existingEvent !== "") {
+      setEventText(existingEvent);
+    }
+
+    if (existingThought !== "") {
+      setThoughtText(existingThought);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (eventText !== "") {
+      localStorage.setItem("eventText", eventText);
+    }
+
+    if (thoughtText !== "") {
+      localStorage.setItem("thoughtText", thoughtText);
+    }
+  }, [eventText, thoughtText]);
 
   const showExample = function () {
     setEventText(constants.site.example.event);
     setThoughtText(constants.site.example.thought);
   };
 
-  const analyse = async function () {
+  const analyse = function () {
     setLoading(true);
-    try {
-      const res = await fetch("/api/analyse", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eventText, thoughtText }),
-      });
-      const data = await res.json();
 
-      setLoaded(true);
-      setLoading(false);
-      setResponse(data);
-    } catch (err: any) {
-      console.log(err);
-      setError(err.toString());
+    ws?.send(JSON.stringify({ eventText, thoughtText }));
+
+    if (ws) {
+      ws.onmessage = (message) => {
+        const data = JSON.parse(message.data);
+        if (data.message?.includes("timed out")) {
+          return;
+        }
+        setLoaded(true);
+        setLoading(false);
+        setResponse(JSON.parse(data.choices[0].message.content));
+      };
     }
   };
 
