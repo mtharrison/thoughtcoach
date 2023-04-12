@@ -4,7 +4,9 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
+  Button,
   CloseButton,
+  Divider,
   Text,
 } from '@chakra-ui/react';
 
@@ -18,40 +20,46 @@ export default function Disclaimer({
   const onClose = () => setDisclaimerAccepted(true);
 
   return !disclaimerAccepted ? (
-    <Alert mb={5} p={5} status="error">
-      <AlertIcon />
+    <Alert mb={5} p={5} status="error" rounded={'md'}>
       <Box>
-        <AlertTitle>DISCLAIMER (Please Read)</AlertTitle>
+        <AlertTitle>DISCLAIMER</AlertTitle>
         <AlertDescription>
           <Text mt={3} fontWeight="bold">
             THIS APPLICATION DOES NOT PROVIDE MEDICAL ADVICE.
           </Text>
-          The information provided is for educational purposes only. Thought
-          Coach is a research project to explore the possibilities for AI to be
-          used in the field of mental health treatment. It is not a substitute
-          for professional medical advice or therapy. The text content generated
-          may provide false or biased information and should not be relied upon
-          as being accurate or appropriate.{' '}
-          <Text mt={3}>
-            {' '}
-            If you think you are experiencing any medical condition you should
-            seek immediate medical attention from a doctor or other professional
-            healthcare provider.
+          <Text mt={4}>
+            This research app is intended to explore the potential for using
+            artificial intelligence in mental health therapy. It is not intended
+            to replace professional medical advice, diagnosis, or treatment. The
+            information provided by the app is for educational and research
+            purposes only.
           </Text>
-          <Text mt={3}>
-            {' '}
-            By closing this disclaimer message you are acknowledging the above
-            information.
+          <Text mt={4}>
+            The use of this app does not create a therapist-patient
+            relationship. If you are experiencing a mental health emergency,
+            please contact your local emergency services immediately. The
+            creators of this app are not responsible for any errors or omissions
+            in the information provided by the app. The creators make no
+            representations or warranties of any kind, express or implied, about
+            the completeness, accuracy, reliability, suitability, or
+            availability with respect to the app or the information, products,
+            services, or related graphics contained in the app for any purpose.
           </Text>
+          <Text mt={4}>
+            Any reliance you place on such information is therefore strictly at
+            your own risk. The creators of this app disclaim any liability for
+            any damage or loss, including without limitation, indirect or
+            consequential loss or damage, or any damage or loss whatsoever
+            arising from loss of data or profits arising out of, or in
+            connection with, the use of this app. By using this app, you
+            acknowledge that you have read and understood this legal disclaimer
+            and agree to be bound by its terms and conditions.
+          </Text>
+          <Button mt={5} colorScheme="red" onClick={onClose}>
+            Accept
+          </Button>
         </AlertDescription>
       </Box>
-      <CloseButton
-        alignSelf="flex-start"
-        position="relative"
-        right={-1}
-        top={-1}
-        onClick={onClose}
-      />
     </Alert>
   ) : (
     <></>
