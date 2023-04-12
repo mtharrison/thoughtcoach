@@ -14,9 +14,19 @@ import {
 
 import { DistortionProps, DistortionsProps } from '@/types';
 
-export function Distortions(props: DistortionsProps) {
+export function Distortions(
+  props: DistortionsProps & { thought: string; event: string }
+) {
   return (
     <Stack spacing={2}>
+      <Card borderTopRadius="lg" boxShadow="lg" p={8} mb={5}>
+        <Text mb={4}>
+          <Text fontWeight={'bold'}>Event:</Text> {props.event}
+        </Text>
+        <Text>
+          <Text fontWeight={'bold'}>Thought:</Text> {props.thought}
+        </Text>
+      </Card>
       <SimpleGrid minChildWidth={{ sm: '300px', md: '300px' }} spacing="15px">
         {props.distortions.map((distortion: DistortionProps, i) => {
           return <Distortion key={i} {...distortion} />;

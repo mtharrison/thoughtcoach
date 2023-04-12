@@ -66,8 +66,8 @@ export default function Home() {
     ws.onclose = () => console.log('close');
     ws.onerror = (err) => console.log(err);
 
-    const existingEvent = localStorage.getItem('eventText') || '';
-    const existingThought = localStorage.getItem('thoughtText') || '';
+    const existingEvent = sessionStorage.getItem('eventText') || '';
+    const existingThought = sessionStorage.getItem('thoughtText') || '';
 
     if (existingEvent !== '') {
       setEventText(existingEvent);
@@ -80,11 +80,11 @@ export default function Home() {
 
   useEffect(() => {
     if (eventText !== '') {
-      localStorage.setItem('eventText', eventText);
+      sessionStorage.setItem('eventText', eventText);
     }
 
     if (thoughtText !== '') {
-      localStorage.setItem('thoughtText', thoughtText);
+      sessionStorage.setItem('thoughtText', thoughtText);
     }
   }, [eventText, thoughtText]);
 
@@ -116,6 +116,8 @@ export default function Home() {
     setThoughtText('');
     setLoaded(false);
     setResponse(null);
+    sessionStorage.removeItem('thoughtText');
+    sessionStorage.removeItem('eventText');
   };
 
   const mainBody = () => {
@@ -159,6 +161,8 @@ export default function Home() {
           </Stack>
           {loaded && (
             <Distortions
+              thought={thoughtText}
+              event={eventText}
               {...marshalDistortions(response as unknown as AnalyseResponse)}
             />
           )}

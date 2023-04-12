@@ -57,14 +57,26 @@ exports.completion = async (event) => {
   // for offline usage we can simply use a response because we're not limited by api gateway timeout
   // for dev/prd use we need to use the API gateway and post to the connnection after returning
 
-  const response = await getCompletion(JSON.parse(event.body));
+  const r = [
+    {
+      message: {
+        role: 'assistant',
+        content:
+          '{\n  "distortions": {\n    "Labeling and Mislabeling": {\n      "why": "You labeled yourself as \'clumsy\' and \'stupid\' for not watching where you were going (\'I must be so clumsy and stupid\').",\n      "info": "Labeling and Mislabeling involves attaching negative labels to yourself or others based on a single event.",\n      "reframe": "Accidents happen to everyone. Instead of labeling yourself as clumsy or stupid, recognize that it was an unfortunate event and it doesn\'t define your entire character."\n    },\n    "Overgeneralization": {\n      "why": "You made an assumption that a single incident represents a pattern of behavior (\'This is just like me to ruin a perfectly good day with my own carelessness\').",\n      "info": "Overgeneralization is when you draw a broad conclusion from a single event or piece of evidence.",\n      "reframe": "While it\'s true that you could have been more cautious in this particular situation, it doesn\'t necessarily mean that you consistently ruin good days with carelessness. Separate this incident from your overall behavior and use it as a learning experience to be more aware in the future."\n    }\n  }\n}',
+      },
+      finish_reason: 'stop',
+      index: 0,
+    },
+  ];
 
   if (process.env.IS_OFFLINE) {
     return {
-      body: JSON.stringify(response),
+      body: JSON.stringify(r),
       statusCode: 200,
     };
   }
+
+  const response = await getCompletion(JSON.parse(event.body));
 
   const domain = event.requestContext.domainName;
   const stage = event.requestContext.stage;
