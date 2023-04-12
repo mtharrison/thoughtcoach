@@ -1,34 +1,50 @@
 import { Button, Container, HStack, Heading, Stack } from '@chakra-ui/react';
 
-import { AnalyseResponse, DistortionConfig, DistortionsProps } from '@/types';
-import { useEffect, useState } from 'react';
 import { Distortions } from '../components/distortions';
+
+import { useEffect, useState } from 'react';
 
 import Disclaimer from '@/components/disclaimer';
 import Input from '@/components/input';
 import Layout from '@/components/layout';
+import { AnalyseResponse, DistortionsProps } from '@/types';
 import * as constants from '../constants';
 
-const marshalDistortions = (response: AnalyseResponse): DistortionsProps => {
-  return {
-    distortions: Object.entries(response.distortions).map(([key, val]) => {
-      const d: DistortionConfig = constants.site.distortions[key];
+function marshalDistortions(response: AnalyseResponse): DistortionsProps {
+  const keys = Object.keys(response.distortions).filter(
+    (k) => constants.site.distortions[k] !== undefined
+  );
+
+  const res = {
+    distortions: keys.map((k) => {
+      const d = constants.site.distortions[k];
+      const v = response.distortions[k];
       return {
-        name: key,
-        link: d.link,
+        name: k,
         color: d.color,
+        link: d.link,
         sections: [
-          { heading: 'What is it?', body: val.info },
-          { heading: 'Where might I have used it?', body: val.why },
+          {
+            heading: 'What is it?',
+            body: v.info,
+          },
+          {
+            heading: 'How might I have used it?',
+            body: v.why,
+          },
           {
             heading: "What's another way to think about it?",
-            body: val.reframe,
+            body: v.reframe,
           },
         ],
       };
     }),
   };
-};
+
+  console.log(res);
+
+  return res;
+}
 
 export default function Home() {
   const [eventText, setEventText] = useState('');
@@ -40,9 +56,20 @@ export default function Home() {
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== 'false'
   );
+  const [ws, setWs] = useState<WebSocket | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const ws = new WebSocket(
+      'wss://bnu9qu2vxb.execute-api.us-east-1.amazonaws.com/dev'
+    );
+
+    ws.onopen = () => {
+      setWs(ws);
+    };
+    ws.onclose = () => console.log('close');
+    ws.onerror = (err) => console.log(err);
+
     const existingEvent = localStorage.getItem('eventText') || '';
     const existingThought = localStorage.getItem('thoughtText') || '';
 
@@ -70,22 +97,21 @@ export default function Home() {
     setThoughtText(constants.site.example.thought);
   };
 
-  const analyse = async function () {
+  const analyse = function () {
     setLoading(true);
-    try {
-      const res = await fetch('/api/analyse', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventText, thoughtText }),
-      });
-      const data = await res.json();
 
-      setLoaded(true);
-      setLoading(false);
-      setResponse(data);
-    } catch (err: any) {
-      console.log(err);
-      setError(err.toString());
+    ws?.send(JSON.stringify({ eventText, thoughtText }));
+
+    if (ws) {
+      ws.onmessage = (message) => {
+        const data = JSON.parse(message.data);
+        if (data.message?.includes('timed out')) {
+          return;
+        }
+        setLoaded(true);
+        setLoading(false);
+        setResponse(JSON.parse(data.choices[0].message.content));
+      };
     }
   };
 

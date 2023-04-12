@@ -1,6 +1,7 @@
 import { SimpleGrid, Stack } from '@chakra-ui/react';
 
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -26,6 +27,7 @@ export function Distortions(props: DistortionsProps) {
 }
 
 export default function Distortion(props: DistortionProps) {
+  console.log(props);
   return (
     <Card
       borderTopColor={props.color}
@@ -35,18 +37,18 @@ export default function Distortion(props: DistortionProps) {
     >
       <CardBody>
         <Stack spacing="3">
-          <Heading color="headingColor1" size="md">
+          <Heading color="headingColor1" size="md" mb={3}>
             {props.name}
           </Heading>
           {props.sections.map(({ heading, body }, i: number) => {
             return (
-              <>
-                <Heading key={i} color="headingColor1" size="sm" pt={3}>
+              <Box key={i}>
+                <Heading key={i} color="headingColor1" size="sm" mb={2}>
                   {heading}
                 </Heading>
                 <Text>{body}</Text>
-                {i !== props.sections.length - 1 && <Divider />}
-              </>
+                {i !== props.sections.length - 1 && <Divider pt={4} />}
+              </Box>
             );
           })}
         </Stack>

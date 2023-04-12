@@ -27,8 +27,10 @@ export interface DistortionsConfig {
 
 export interface AnalyseResponse {
   distortions: {
-    why: string;
-    info: string;
-    reframe: string;
-  }[];
+    [key: string]: {
+      why: string;
+      info: string;
+      reframe: string;
+    };
+  };
 }
