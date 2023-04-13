@@ -59,7 +59,7 @@ const Container = defineStyleConfig({
       mb: 5,
       bg: 'gray.50',
       rounded: 'md',
-      p: 10,
+      p: { sm: 5, md: 10 },
     },
     min: {
       boxShadow: 'md',

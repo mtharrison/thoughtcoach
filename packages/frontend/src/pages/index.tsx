@@ -84,8 +84,9 @@ export default function Home() {
   }, [eventText, thoughtText]);
 
   const showExample = function () {
-    setEventText(constants.site.example.event);
-    setThoughtText(constants.site.example.thought);
+    const i = Math.floor(Math.random() * constants.site.examples.length);
+    setEventText(constants.site.examples[i].event);
+    setThoughtText(constants.site.examples[i].thought);
   };
 
   const analyse = function () {

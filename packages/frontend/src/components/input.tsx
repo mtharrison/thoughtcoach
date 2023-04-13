@@ -46,9 +46,7 @@ export default function Input({
         </Text>
         <Text fontSize="sm">
           Often following a difficult situation we tell ourselves a negative
-          story, dig deep to uncover your self-talk following the event. It
-          might be something like "they must think I'm an idiot after doing
-          that"
+          story, dig deep to uncover your self-talk following the event.
         </Text>
       </Box>
       <Textarea
