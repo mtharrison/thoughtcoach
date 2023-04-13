@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container p={0} pb={10} h="100%" w="100%" maxW="100%">
-          <Container rounded={'xl'} p={0} maxW={{ sm: '90%', md: '80%' }}>
+          <Container rounded={'xl'} p={0} maxW={{ sm: '100%', md: '80%' }}>
             <Disclaimer
               disclaimerAccepted={disclaimerAccepted}
               setDisclaimerAccepted={setDisclaimerAccepted}

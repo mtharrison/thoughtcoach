@@ -120,11 +120,55 @@ export const site = {
   sponsorship: false,
   domain: 'thoughtcoach.app',
   description: 'Helping you to think rationally',
-  example: {
-    event:
-      'I was walking down the street on a sunny day when suddenly, I felt a sharp pain in my ankle. As I looked down, I realized that I had stepped on a broken piece of glass that was now embedded in my foot. I hobbled over to a nearby bench and tried to pull the glass out, but it was too deep. I had to call a friend to come pick me up and take me to the hospital, where I had to undergo a painful procedure to have the glass removed. The incident left me with a limp for several days and a fear of walking barefoot in public places.',
-    thought:
-      "I can't believe this happened to me. I must be so clumsy and stupid for not watching where I was going. This is just like me to ruin a perfectly good day with my own carelessness.",
-  },
+  examples: [
+    {
+      event: 'Got a low grade on a test',
+      thought: "I'm such a failure, I'll never succeed in anything.",
+    },
+    {
+      event: 'Got rejected by someone they liked',
+      thought: "I'm unlovable and nobody will ever want to be with me.",
+    },
+    {
+      event: 'Got passed over for a promotion at work',
+      thought:
+        "I'm not good enough for this job and I'll never advance in my career.",
+    },
+    {
+      event: 'Got into an argument with a friend',
+      thought:
+        "They must hate me now, I'm a terrible friend and can't maintain relationships.",
+    },
+    {
+      event: 'Failed to complete a task on time',
+      thought:
+        "I'm so lazy and incompetent, I'll never be able to accomplish anything important.",
+    },
+    {
+      event: 'Got criticized by a supervisor',
+      thought:
+        "I'm a complete failure and they're probably going to fire me soon.",
+    },
+    {
+      event: 'Made a mistake in front of others',
+      thought:
+        "Everyone thinks I'm an idiot now and I'm never going to live this down.",
+    },
+    {
+      event: 'Missed an important deadline',
+      thought:
+        "I'm a total screw-up and I'll never be able to get anything done on time.",
+    },
+    {
+      event: 'Got rejected by a job application',
+      thought:
+        "I'm never going to find a job, I'm not qualified for anything and nobody wants me.",
+    },
+    {
+      event: 'Lost a valued possession',
+      thought:
+        "I'm such a careless person and I can't even keep track of my own belongings.",
+    },
+  ],
   distortions: distortions,
 };

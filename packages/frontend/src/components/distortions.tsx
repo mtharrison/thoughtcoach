@@ -51,6 +51,7 @@ export function Distortions(
               placement="top"
             >
               <Mark
+                whiteSpace={'break-spaces'}
                 rounded={'md'}
                 bg={spanLookup[text].color}
                 color="white"
@@ -64,7 +65,10 @@ export function Distortions(
           );
         })}
       </Heading>
-      <SimpleGrid minChildWidth={{ sm: '300px', md: '300px' }} spacing="15px">
+      <SimpleGrid
+        minChildWidth={{ sm: 'fit-content', md: '300px' }}
+        spacing="15px"
+      >
         {props.distortions.map((distortion: DistortionProps, i) => {
           return <Distortion key={i} {...distortion} />;
         })}
