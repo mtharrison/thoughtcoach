@@ -17,5 +17,7 @@
     "eslint-plugin-jest": "26.1.5",
     "prettier": "2.6.2"
   },
-  "scripts": {}
+  "scripts": {
+    "dev": "pnpm run -r dev"
+  }
 }

@@ -1,0 +1,52 @@
+service: thought-coach-user-feedback-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  provider:
+  environment:
+    DYNAMODB_FLAG_TABLE: ${self:service}-flagTable-${sls:stage}
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 'dynamodb:PutItem'
+            - 'dynamodb:Get*'
+            - 'dynamodb:Scan*'
+            - 'dynamodb:UpdateItem'
+            - 'dynamodb:DeleteItem'
+          Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-flagTable-${sls:stage}
+
+functions:
+  flagHandler:
+    handler: functions.flag
+    events:
+      - httpApi:
+          path: /
+          method: post
+
+custom:
+  webpack:
+    includeModules:
+      packagePath: '../../package.json'
+  serverless-offline:
+    useInProcess: true
+
+plugins:
+  - serverless-offline
+
+resources:
+  Resources:
+    FlagTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: primary_key
+            AttributeType: S
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: primary_key
+            KeyType: HASH
+        TableName: ${self:service}-flagTable-${sls:stage}

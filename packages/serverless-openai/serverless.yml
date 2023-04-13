@@ -1,4 +1,4 @@
-service: thought-coach-api
+service: thought-coach-openai-api
 frameworkVersion: '3'
 
 provider:
@@ -9,13 +9,13 @@ provider:
 functions:
   connectHandler:
     timeout: 180
-    handler: index.connect
+    handler: functions.connect
     events:
       - websocket: $connect
       - websocket: $disconnect
   completion:
     timeout: 180
-    handler: index.completion
+    handler: functions.completion
     events:
       - websocket:
           route: completion
@@ -24,7 +24,7 @@ functions:
 custom:
   webpack:
     includeModules:
-      packagePath: './package.json'
+      packagePath: '../../package.json'
   serverless-offline:
     websocketPort: 3001
     useInProcess: true
