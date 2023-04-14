@@ -1,21 +1,19 @@
 {
-  "name": "serverless-openai",
+  "name": "serverless-user-feedback",
   "version": "0.0.0",
   "private": true,
   "main": "functions.js",
   "scripts": {
     "dev": "npx sls offline",
-    "dev-deploy": "sls deploy --stage dev",
-    "prd-deploy": "sls deploy --stage prd",
+    "dev-deploy": "sls deploy --org=mtharrison --stage dev",
+    "prd-deploy": "sls deploy --org=mtharrison --stage prd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "None",
   "dependencies": {
-    "openai": "^3.2.1"
+    "aws-sdk": "^2.1357.0"
   },
   "devDependencies": {
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0",
-    "aws-sdk": "^2.1357.0",
     "serverless-offline": "^12.0.4"
   }
 }

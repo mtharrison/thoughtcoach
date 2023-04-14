@@ -30,9 +30,10 @@ functions:
 custom:
   webpack:
     includeModules:
-      packagePath: '../../package.json'
+      packagePath: './package.json'
   serverless-offline:
-    useInProcess: true
+    httpPort: 3003
+    lambdaPort: 3004
 
 plugins:
   - serverless-offline

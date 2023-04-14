@@ -16,17 +16,20 @@ functions:
   completion:
     timeout: 180
     handler: functions.completion
+    environment:
+      OPENAI_API_KEY: ${env:OPENAI_API_KEY}
     events:
       - websocket:
           route: completion
           routeResponseSelectionExpression: $default
 
+useDotenv: true
+
 custom:
   webpack:
     includeModules:
-      packagePath: '../../package.json'
+      packagePath: './package.json'
   serverless-offline:
     websocketPort: 3001
-    useInProcess: true
 plugins:
   - serverless-offline

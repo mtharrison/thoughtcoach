@@ -5,12 +5,13 @@
   "main": "functions.js",
   "scripts": {
     "dev": "npx sls offline",
-    "dev-deploy": "sls deploy --stage dev",
-    "prd-deploy": "sls deploy --stage prd",
+    "dev-deploy": "sls deploy --org=mtharrison --stage dev",
+    "prd-deploy": "sls deploy --org=mtharrison --stage prd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "None",
   "dependencies": {
+    "serverless": "^3.30.1",
     "openai": "^3.2.1"
   },
   "devDependencies": {
