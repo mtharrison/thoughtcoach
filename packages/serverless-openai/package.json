@@ -1,5 +1,5 @@
 {
-  "name": "serverless-openai",
+  "name": "thought-coach-openai-api",
   "version": "0.0.0",
   "private": true,
   "main": "functions.js",

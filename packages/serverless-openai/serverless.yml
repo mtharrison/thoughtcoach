@@ -1,3 +1,5 @@
+org: mtharrison
+app: thought-coach-openai-api
 service: thought-coach-openai-api
 frameworkVersion: '3'
 
