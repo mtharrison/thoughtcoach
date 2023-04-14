@@ -11,8 +11,10 @@
   },
   "license": "None",
   "dependencies": {
-    "serverless": "^3.30.1",
-    "openai": "^3.2.1"
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1359.0",
+    "openai": "^3.2.1",
+    "serverless": "^3.30.1"
   },
   "devDependencies": {
     "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0",

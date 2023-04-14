@@ -1,9 +1,12 @@
-import { Api, NextjsSite, StackContext } from 'sst/constructs';
+import { Api, WebSocketApi, NextjsSite, StackContext } from 'sst/constructs';
 
 export function DefaultStack({ stack, app }: StackContext) {
-  const completionApi = new Api(stack, 'api', {
+  const completionApi = new WebSocketApi(stack, 'Api', {
     routes: {
-      'POST /': 'packages/openai/src/lambda.handler',
+      $connect: 'packages/openai/src/connect.main',
+      $default: 'packages/openai/src/connect.main',
+      $disconnect: 'packages/openai/src/connect.main',
+      completion: 'packages/openai/src/completion.main',
     },
     defaults: {
       function: {
@@ -15,7 +18,7 @@ export function DefaultStack({ stack, app }: StackContext) {
   const frontend = new NextjsSite(stack, 'Site', {
     path: 'packages/frontend',
     environment: {
-      COMPLETION_API_URL: completionApi.url,
+      COMPLETION_API_WSS_URL: completionApi.url,
     },
   });
 
@@ -24,6 +27,6 @@ export function DefaultStack({ stack, app }: StackContext) {
   // Show the site URL in the output
   stack.addOutputs({
     URL: frontend.url,
-    COMPLETION_API_URL: completionApi.url,
+    COMPLETION_API_WSS_URL: completionApi.url,
   });
 }

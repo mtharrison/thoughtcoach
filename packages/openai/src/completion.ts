@@ -1,9 +1,15 @@
-import { ApiHandler } from 'sst/node/api';
+import { APIGatewayProxyHandler } from 'aws-lambda';
+import { ApiGatewayManagementApi } from 'aws-sdk';
 
 const { Configuration, OpenAIApi } = require('openai');
 
-export const handler = ApiHandler(async (event) => {
+export const main: APIGatewayProxyHandler = async (event) => {
   const input = JSON.parse(event.body);
+  const { stage, domainName, connectionId } = event.requestContext;
+
+  const apiG = new ApiGatewayManagementApi({
+    endpoint: `${domainName}/${stage}`,
+  });
 
   const configuration = new Configuration({
     apiKey: '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',
@@ -36,7 +42,7 @@ export const handler = ApiHandler(async (event) => {
     if (typeof s.content === 'function') {
       return {
         role: s.role,
-        content: s.content(input),
+        content: s.content(input.body),
       };
     }
 
@@ -48,10 +54,14 @@ export const handler = ApiHandler(async (event) => {
     messages: messages,
   });
 
+  await apiG
+    .postToConnection({
+      ConnectionId: connectionId,
+      Data: completion.data.choices[0].message.content,
+    })
+    .promise();
+
   return {
-    body: {
-      output: JSON.parse(completion.data.choices[0].message.content),
-      input,
-    },
+    statusCode: 200,
   };
-});
+};

@@ -10,7 +10,10 @@ import { AnalyseResponse, DistortionsProps } from '@/types';
 import * as constants from '../constants';
 
 export async function getServerSideProps() {
-  return { props: { COMPLETION_API_URL: process.env.COMPLETION_API_URL } };
+  console.log(process.env);
+  return {
+    props: { COMPLETION_API_WSS_URL: process.env.COMPLETION_API_WSS_URL },
+  };
 }
 
 function marshalDistortions(response: AnalyseResponse): DistortionsProps {
@@ -50,6 +53,7 @@ export default function Home(props: any) {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
+  const [ws, setWs] = useState<WebSocket | null>(null);
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== 'false'
   );
@@ -69,14 +73,25 @@ export default function Home(props: any) {
   }, []);
 
   useEffect(() => {
-    if (eventText !== '') {
-      sessionStorage.setItem('eventText', eventText);
+    const ws = new WebSocket(props.COMPLETION_API_WSS_URL as string);
+
+    ws.onopen = () => {
+      setWs(ws);
+    };
+    ws.onclose = () => console.log('close');
+    ws.onerror = (err) => console.log(err);
+
+    const existingEvent = sessionStorage.getItem('eventText') || '';
+    const existingThought = sessionStorage.getItem('thoughtText') || '';
+
+    if (existingEvent !== '') {
+      setEventText(existingEvent);
     }
 
-    if (thoughtText !== '') {
-      sessionStorage.setItem('thoughtText', thoughtText);
+    if (existingThought !== '') {
+      setThoughtText(existingThought);
     }
-  }, [eventText, thoughtText]);
+  }, []);
 
   const showExample = function () {
     const i = Math.floor(Math.random() * constants.site.examples.length);
@@ -84,24 +99,24 @@ export default function Home(props: any) {
     setThoughtText(constants.site.examples[i].thought);
   };
 
-  const analyse = async function () {
+  const analyse = function () {
     setLoading(true);
 
-    const res = await fetch(props.COMPLETION_API_URL as string, {
-      method: 'POST',
-      body: JSON.stringify({
-        eventText,
-        thoughtText,
-      }),
-    });
+    ws?.send(
+      JSON.stringify({ action: 'completion', body: { eventText, thoughtText } })
+    );
 
-    const json = await res.json();
-
-    console.log(json);
-
-    setLoaded(true);
-    setLoading(false);
-    setResponse(json);
+    if (ws) {
+      ws.onmessage = (message) => {
+        const data = JSON.parse(message.data);
+        if (data.message?.includes('timed out')) {
+          return;
+        }
+        setLoaded(true);
+        setLoading(false);
+        setResponse(data);
+      };
+    }
   };
 
   const restart = function () {
