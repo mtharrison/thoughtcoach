@@ -9,6 +9,10 @@ import Layout from '@/components/layout';
 import { AnalyseResponse, DistortionsProps } from '@/types';
 import * as constants from '../constants';
 
+export async function getServerSideProps() {
+  return { props: { COMPLETION_API_URL: process.env.COMPLETION_API_URL } };
+}
+
 function marshalDistortions(response: AnalyseResponse): DistortionsProps {
   const keys = Object.keys(response.distortions).filter(
     (k) => constants.site.distortions[k] !== undefined
@@ -40,7 +44,7 @@ function marshalDistortions(response: AnalyseResponse): DistortionsProps {
   return res;
 }
 
-export default function Home() {
+export default function Home(props: any) {
   const [eventText, setEventText] = useState('');
   const [thoughtText, setThoughtText] = useState('');
   const [loaded, setLoaded] = useState(false);
@@ -49,18 +53,9 @@ export default function Home() {
   const [maintenance, setMaintenance] = useState(
     process.env.NEXT_PUBLIC_MAINTENANCE !== 'false'
   );
-  const [ws, setWs] = useState<WebSocket | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL as string);
-
-    ws.onopen = () => {
-      setWs(ws);
-    };
-    ws.onclose = () => console.log('close');
-    ws.onerror = (err) => console.log(err);
-
     const existingEvent = sessionStorage.getItem('eventText') || '';
     const existingThought = sessionStorage.getItem('thoughtText') || '';
 
@@ -89,22 +84,24 @@ export default function Home() {
     setThoughtText(constants.site.examples[i].thought);
   };
 
-  const analyse = function () {
+  const analyse = async function () {
     setLoading(true);
 
-    ws?.send(JSON.stringify({ route: 'completion', eventText, thoughtText }));
+    const res = await fetch(props.COMPLETION_API_URL as string, {
+      method: 'POST',
+      body: JSON.stringify({
+        eventText,
+        thoughtText,
+      }),
+    });
 
-    if (ws) {
-      ws.onmessage = (message) => {
-        const data = JSON.parse(message.data);
-        if (data.message?.includes('timed out')) {
-          return;
-        }
-        setLoaded(true);
-        setLoading(false);
-        setResponse(JSON.parse(data[0].message.content));
-      };
-    }
+    const json = await res.json();
+
+    console.log(json);
+
+    setLoaded(true);
+    setLoading(false);
+    setResponse(json);
   };
 
   const restart = function () {
