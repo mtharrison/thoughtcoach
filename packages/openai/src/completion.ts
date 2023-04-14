@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { ApiGatewayManagementApi } from 'aws-sdk';
-
+import { Config } from 'sst/node/config';
 const { Configuration, OpenAIApi } = require('openai');
 
 export const main: APIGatewayProxyHandler = async (event) => {
@@ -12,7 +12,8 @@ export const main: APIGatewayProxyHandler = async (event) => {
   });
 
   const configuration = new Configuration({
-    apiKey: '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',
+    //@ts-ignore
+    apiKey: Config.OPENAI_API_KEY as unknown as string,
   });
 
   const openai = new OpenAIApi(configuration);

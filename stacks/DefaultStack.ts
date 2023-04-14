@@ -1,6 +1,21 @@
-import { Api, WebSocketApi, NextjsSite, StackContext } from 'sst/constructs';
+import { WebSocketApi, NextjsSite, StackContext, Config } from 'sst/constructs';
 
 export function DefaultStack({ stack, app }: StackContext) {
+  const stage = app.stage;
+
+  const OPENAI_API_KEY = new Config.Secret(stack, 'OPENAI_API_KEY');
+
+  let frontendDomain = 'local.thoughtcoach.app';
+
+  switch (stage) {
+    case 'dev':
+      frontendDomain = 'dev.thoughtcoach.app';
+      break;
+    case 'prd':
+      frontendDomain = 'thoughtcoach.app';
+      break;
+  }
+
   const completionApi = new WebSocketApi(stack, 'Api', {
     routes: {
       $connect: 'packages/openai/src/connect.main',
@@ -15,8 +30,14 @@ export function DefaultStack({ stack, app }: StackContext) {
     },
   });
 
+  completionApi.bind([OPENAI_API_KEY]);
+
   const frontend = new NextjsSite(stack, 'Site', {
     path: 'packages/frontend',
+    customDomain: {
+      domainName: frontendDomain,
+      hostedZone: 'thoughtcoach.app',
+    },
     environment: {
       COMPLETION_API_WSS_URL: completionApi.url,
     },

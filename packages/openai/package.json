@@ -14,10 +14,9 @@
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1359.0",
     "openai": "^3.2.1",
-    "serverless": "^3.30.1"
+    "sst": "^2.5.2"
   },
   "devDependencies": {
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0",
-    "serverless-offline": "^12.0.4"
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0"
   }
 }
