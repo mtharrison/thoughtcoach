@@ -24,8 +24,6 @@
   "scripts": {
     "dev": "sst dev",
     "build": "sst build",
-    "deploy-dev": "sst deploy --stage dev",
-    "deploy-prd": "sst deploy --stage prd",
     "remove": "sst remove",
     "console": "sst console",
     "typecheck": "tsc --noEmit"
