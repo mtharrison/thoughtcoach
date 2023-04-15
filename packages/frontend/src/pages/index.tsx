@@ -92,39 +92,39 @@ export default function Home(props: any) {
       setThoughtText(existingThought);
     }
 
-    const resp = {
-      distortions: {
-        'All-or-Nothing Thinking': {
-          spans: ["I'm not good enough", "I'll never advance in my career"],
-          info: 'This cognitive distortion involves seeing things in black and white with no shades of gray.',
-          reframe:
-            "Just because I didn't get the promotion this time doesn't mean I'm not good enough or won't advance later. I can learn from this experience and improve for future opportunities.",
-        },
-        Overgeneralization: {
-          spans: ["I'll never advance in my career"],
-          info: 'Overgeneralization is when we take one event or outcome and apply it to all situations.',
-          reframe:
-            "One setback doesn't mean that I won't advance in my career. There will be other opportunities for growth.",
-        },
-        'Disqualifying the Positive': {
-          spans: ["I'm not good enough"],
-          info: 'This distortion involves ignoring positive experiences and evidence that contradicts negative beliefs.',
-          reframe:
-            "Just because I didn't get the promotion doesn't mean I'm not good enough. I have accomplished many things so far in my career that demonstrate my value at work.",
-        },
-        'Jumping to Conclusions': {
-          spans: ["I'll never advance in my career"],
-          info: 'Jumping to Conclusions is when we assume the worst without sufficient evidence.',
-          reframe:
-            "I shouldn't assume that my career won't advance based on one event. I can continue to work hard and improve my skills, which could lead to future opportunities.",
-        },
-      },
-    };
+    // const resp = {
+    //   distortions: {
+    //     'All-or-Nothing Thinking': {
+    //       spans: ["I'm not good enough", "I'll never advance in my career"],
+    //       info: 'This cognitive distortion involves seeing things in black and white with no shades of gray.',
+    //       reframe:
+    //         "Just because I didn't get the promotion this time doesn't mean I'm not good enough or won't advance later. I can learn from this experience and improve for future opportunities.",
+    //     },
+    //     Overgeneralization: {
+    //       spans: ["I'll never advance in my career"],
+    //       info: 'Overgeneralization is when we take one event or outcome and apply it to all situations.',
+    //       reframe:
+    //         "One setback doesn't mean that I won't advance in my career. There will be other opportunities for growth.",
+    //     },
+    //     'Disqualifying the Positive': {
+    //       spans: ["I'm not good enough"],
+    //       info: 'This distortion involves ignoring positive experiences and evidence that contradicts negative beliefs.',
+    //       reframe:
+    //         "Just because I didn't get the promotion doesn't mean I'm not good enough. I have accomplished many things so far in my career that demonstrate my value at work.",
+    //     },
+    //     'Jumping to Conclusions': {
+    //       spans: ["I'll never advance in my career"],
+    //       info: 'Jumping to Conclusions is when we assume the worst without sufficient evidence.',
+    //       reframe:
+    //         "I shouldn't assume that my career won't advance based on one event. I can continue to work hard and improve my skills, which could lead to future opportunities.",
+    //     },
+    //   },
+    // };
 
-    setEventText("I'll never advance in my career");
-    setThoughtText("I'll never advance in my career");
-    setResponse(resp as AnalyseResponse);
-    setLoaded(true);
+    // setEventText("I'll never advance in my career");
+    // setThoughtText("I'll never advance in my career");
+    // setResponse(resp as AnalyseResponse);
+    // setLoaded(true);
   }, []);
 
   const showExample = function () {
