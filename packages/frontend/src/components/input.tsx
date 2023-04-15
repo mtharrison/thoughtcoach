@@ -61,6 +61,9 @@ export default function Input({
       <Button
         isLoading={loading}
         onClick={analyse}
+        isDisabled={
+          thoughtText.trim().length === 0 || eventText.trim().length === 0
+        }
         colorScheme="blue"
         bg="highlight"
         size="md"
