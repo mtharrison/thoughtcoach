@@ -198,7 +198,7 @@ export function Distortions(
   );
 }
 
-export default function Distortion(props: DistortionProps) {
+export function Distortion(props: DistortionProps) {
   return (
     <Card
       borderTopColor={props.color}

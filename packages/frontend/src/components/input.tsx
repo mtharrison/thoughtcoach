@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Textarea } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Textarea, Stack } from '@chakra-ui/react';
 
 export default function Input({
   eventText,
@@ -16,21 +16,19 @@ export default function Input({
   loading: boolean;
 }) {
   return (
-    <>
-      <Box>
-        <Flex gap={5}>
-          <Box>
-            <Text fontWeight={'bold'} fontSize="xl">
-              What happened?
-            </Text>
-            <Text fontSize="sm">
-              Try to explain in as much detail as you can an event that occured
-              that led you to have negative emotions. Explain like you would to
-              a friend.
-            </Text>
-          </Box>
-        </Flex>
-      </Box>
+    <Stack gap={3}>
+      <Flex>
+        <Box>
+          <Text fontWeight={'bold'} fontSize="xl">
+            What happened?
+          </Text>
+          <Text fontSize="sm">
+            Try to explain in as much detail as you can an event that occured
+            that led you to have negative emotions. Explain like you would to a
+            friend.
+          </Text>
+        </Box>
+      </Flex>
       <Textarea
         minH={170}
         isDisabled={loading}
@@ -74,6 +72,6 @@ export default function Input({
       {loading && (
         <Text>Response can take up to a minute, please be patient</Text>
       )}
-    </>
+    </Stack>
   );
 }

@@ -1,4 +1,4 @@
-import '@/styles/globals.css';
+import '../styles/globals.css';
 import {
   ChakraProvider,
   defineStyleConfig,
@@ -97,4 +97,5 @@ function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   );
 }
 
+export const chakraTheme = theme;
 export default App;
