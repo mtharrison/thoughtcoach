@@ -148,7 +148,7 @@ export default function Home(props: any) {
                 w="4xs"
                 onClick={showExample}
               >
-                Show me an example
+                Show me an example...
               </Button>
             )}
           </HStack>
