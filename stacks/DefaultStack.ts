@@ -26,6 +26,13 @@ export function DefaultStack({ stack, app }: StackContext) {
       break;
   }
 
+  const responseCacheTable = new Table(stack, 'ResponseCache', {
+    fields: {
+      id: 'string',
+    },
+    primaryIndex: { partitionKey: 'id' },
+  });
+
   const completionApi = new WebSocketApi(stack, 'Api', {
     routes: {
       $connect: 'packages/openai/src/connect.main',
@@ -36,6 +43,7 @@ export function DefaultStack({ stack, app }: StackContext) {
     defaults: {
       function: {
         timeout: '120 seconds',
+        bind: [responseCacheTable],
       },
     },
   });
