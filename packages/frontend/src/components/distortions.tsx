@@ -4,6 +4,8 @@ import {
   Box,
   Button,
   Card,
+  Grid,
+  GridItem,
   CardBody,
   CardFooter,
   Divider,
@@ -13,6 +15,8 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react';
+
+import { QuestionIcon } from '@chakra-ui/icons';
 
 import { DistortionProps, DistortionsProps } from '@/types';
 
@@ -50,31 +54,48 @@ export function Distortions(
 
   return (
     <Stack spacing={2}>
-      <Heading size={'md'} lineHeight="10" borderTopRadius="lg" mb={5}>
-        {chunks.map(({ match, text }, i) => {
-          if (!match) return text;
-          return (
-            <Tooltip
-              key={i}
-              rounded={'md'}
-              label={spanLookup[text].map((m) => m.name).join(', ')}
-              placement="top"
+      <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+        <GridItem rowSpan={1} colSpan={{ sm: 4, md: 3 }}>
+          <Heading size={'md'} lineHeight="10" borderTopRadius="lg" mb={5}>
+            {chunks.map(({ match, text }, i) => {
+              if (!match) return text;
+              return (
+                <Tooltip
+                  key={i}
+                  rounded={'md'}
+                  label={spanLookup[text].map((m) => m.name).join(', ')}
+                  placement="top"
+                >
+                  <Mark
+                    whiteSpace={'break-spaces'}
+                    rounded={'md'}
+                    bg={bgBuilder(spanLookup[text].map((m) => m.color))}
+                    color="white"
+                    fontWeight={'bold'}
+                    px="1"
+                    py="1"
+                  >
+                    <span style={{ mixBlendMode: 'plus-lighter' }}>{text}</span>
+                  </Mark>
+                </Tooltip>
+              );
+            })}
+          </Heading>
+        </GridItem>
+        <GridItem rowSpan={1} colSpan={{ sm: 4, md: 1 }}>
+          <Stack alignItems={'flex-end'}>
+            <Button
+              leftIcon={<QuestionIcon />}
+              colorScheme="orange"
+              variant="solid"
+              maxW={'220px'}
+              mb={5}
             >
-              <Mark
-                whiteSpace={'break-spaces'}
-                rounded={'md'}
-                bg={bgBuilder(spanLookup[text].map((m) => m.color))}
-                color="white"
-                fontWeight={'bold'}
-                px="1"
-                py="1"
-              >
-                <span style={{ mixBlendMode: 'plus-lighter' }}>{text}</span>
-              </Mark>
-            </Tooltip>
-          );
-        })}
-      </Heading>
+              Was this unhelpful?
+            </Button>
+          </Stack>
+        </GridItem>
+      </Grid>
       <SimpleGrid
         minChildWidth={{ sm: 'fit-content', md: '300px' }}
         spacing="15px"
