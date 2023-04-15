@@ -1,7 +1,10 @@
-import { Badge, Heading, Link, Wrap, WrapItem } from '@chakra-ui/react';
+import { Badge, Button, Heading, Link, Wrap, WrapItem } from '@chakra-ui/react';
+import { RiHandHeartFill } from 'react-icons/ri';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import mypic from '../../public/logo.png';
+
+import Content from 'content';
 
 import * as constants from '../constants';
 
@@ -17,7 +20,7 @@ export default function Header() {
           href="/"
         >
           <Heading size="xl" color="headingColor1">
-            {constants.site.name}{' '}
+            {Content.general.siteName}{' '}
             <Badge p={1} colorScheme="blue">
               BETA
             </Badge>
@@ -26,25 +29,6 @@ export default function Header() {
       </WrapItem>
 
       <WrapItem height="fit-content" alignItems={'center'} p={5}>
-        {/* <Link
-          color="headingColor2"
-          px={2}
-          textDecoration="underline"
-          as={NextLink}
-          href="/about"
-        >
-          About
-        </Link> */}
-        {/* <Link
-          color="headingColor"
-          px={2}
-          textDecoration="underline"
-          as={NextLink}
-          href="/privacy"
-        >
-          Privacy
-        </Link> */}
-
         <Link
           color="headingColor"
           px={2}
@@ -67,20 +51,22 @@ export default function Header() {
           Contact
         </Link>
         {constants.site.sponsorship && (
-          <Link
+          <Button
             px={3}
             py={2}
             ml={3}
             fontWeight={'bold'}
             bg={'highlight'}
             shadow={'sm'}
+            leftIcon={<RiHandHeartFill />}
             color={'white'}
             rounded={'lg'}
             as={NextLink}
+            target="_external"
             href="https://buy.stripe.com/cN2g2U3ol5069gc7ss"
           >
-            Love our app? Help us to keep running
-          </Link>
+            Support us
+          </Button>
         )}
       </WrapItem>
     </Wrap>

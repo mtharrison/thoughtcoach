@@ -45,6 +45,12 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(prettier@2.6.2)(typescript@5.0.4)
 
+  packages/content:
+    dependencies:
+      typescript:
+        specifier: 5.0.4
+        version: 5.0.4
+
   packages/feedback:
     dependencies:
       aws-lambda:
@@ -83,6 +89,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.0.11
+      content:
+        specifier: workspace:content@*
+        version: link:../content
       framer-motion:
         specifier: ^10.11.2
         version: 10.11.2(react-dom@18.2.0)(react@18.2.0)
@@ -98,6 +107,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-icons:
+        specifier: ^4.8.0
+        version: 4.8.0(react@18.2.0)
       sharp:
         specifier: ^0.32.0
         version: 0.32.0
@@ -7059,6 +7071,14 @@ packages:
       react-clientside-effect: 1.2.6(react@18.2.0)
       use-callback-ref: 1.3.0(@types/react@18.0.33)(react@18.2.0)
       use-sidecar: 1.1.2(@types/react@18.0.33)(react@18.2.0)
+    dev: false
+
+  /react-icons@4.8.0(react@18.2.0):
+    resolution: {integrity: sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is@16.13.1:

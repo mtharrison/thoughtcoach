@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { ReactNode, useState, useEffect } from 'react';
 import * as constants from '../constants';
 
+import Content from 'content';
+
 import Alert from '@/components/alert';
 import Header from '@/components/header';
 import Disclaimer from '@/components/disclaimer';
@@ -59,12 +61,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                 size="xl"
               >
                 <Highlight
-                  query={['perspective', 'life']}
+                  query={Content.general.strapline.primary.hightlights}
                   styles={{
                     color: 'highlight',
                   }}
                 >
-                  Change your perspective, change your life
+                  {Content.general.strapline.primary.text}
                 </Highlight>
               </Heading>
               <Heading
@@ -74,7 +76,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 size="md"
                 mt={3}
               >
-                The simple app that helps you to reframe negative thoughts
+                {Content.general.strapline.secondary.text}
               </Heading>
             </Container>
           </Box>

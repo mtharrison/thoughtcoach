@@ -35,6 +35,7 @@ export function Distortions(
     thought?: string;
     event?: string;
     feedbackUrl?: string;
+    showFeedbackButton?: boolean;
   }
 ) {
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
@@ -167,20 +168,22 @@ export function Distortions(
               })}
             </Heading>
           </GridItem>
-          <GridItem rowSpan={1} colSpan={{ sm: 4, md: 1 }}>
-            <Stack alignItems={'flex-end'}>
-              <Button
-                leftIcon={<QuestionIcon />}
-                colorScheme="orange"
-                variant="solid"
-                onClick={() => setFeedbackModalOpen(true)}
-                maxW={'220px'}
-                mb={5}
-              >
-                Was this unhelpful?
-              </Button>
-            </Stack>
-          </GridItem>
+          {props.showFeedbackButton && (
+            <GridItem rowSpan={1} colSpan={{ sm: 4, md: 1 }}>
+              <Stack alignItems={'flex-end'}>
+                <Button
+                  leftIcon={<QuestionIcon />}
+                  colorScheme="orange"
+                  variant="solid"
+                  onClick={() => setFeedbackModalOpen(true)}
+                  maxW={'220px'}
+                  mb={5}
+                >
+                  Was this unhelpful?
+                </Button>
+              </Stack>
+            </GridItem>
+          )}
         </Grid>
         <SimpleGrid
           minChildWidth={{ sm: 'fit-content', md: '300px' }}

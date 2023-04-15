@@ -43,7 +43,10 @@ export default function CognitiveDistortions() {
         <Text mb={7} size={'sm'}>
           Here are a list of common cognitive distortions with examples:
         </Text>
-        <Distortions {...marshalDistortions(constants.site.distortions)} />
+        <Distortions
+          showFeedbackButton={false}
+          {...marshalDistortions(constants.site.distortions)}
+        />
       </Container>
     </Layout>
   );

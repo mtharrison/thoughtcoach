@@ -16,11 +16,13 @@
     "@types/node": "18.15.11",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "content": "workspace:content@*",
     "framer-motion": "^10.11.2",
     "next": "13.3.0",
     "openai": "^3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
     "sharp": "^0.32.0",
     "typescript": "5.0.4"
   },

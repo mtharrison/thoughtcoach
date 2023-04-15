@@ -204,6 +204,7 @@ export default function Home(props: any) {
           {loaded && (
             <Distortions
               feedbackUrl={props.FEEDBACK_URL}
+              showFeedbackButton={true}
               thought={thoughtText}
               event={eventText}
               {...marshalDistortions(response as unknown as AnalyseResponse)}
