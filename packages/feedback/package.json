@@ -1,0 +1,16 @@
+{
+  "name": "thought-coach-feedback",
+  "version": "0.0.0",
+  "private": true,
+  "main": "functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "None",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1359.0",
+    "sst": "^2.5.2",
+    "uuid": "^9.0.0"
+  }
+}

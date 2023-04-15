@@ -31,10 +31,15 @@ import { useState } from 'react';
 import { DistortionProps, DistortionsProps } from '@/types';
 
 export function Distortions(
-  props: DistortionsProps & { thought?: string; event?: string }
+  props: DistortionsProps & {
+    thought?: string;
+    event?: string;
+    feedbackUrl?: string;
+  }
 ) {
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedbackComment, setFeedbackComment] = useState('');
+  const [feedbackLoading, setFeedbackLoading] = useState<boolean>(false);
 
   const spans: string[] = [];
   const spanLookup: { [key: string]: { color: string; name: string }[] } = {};
@@ -65,6 +70,18 @@ export function Distortions(
     return `linear-gradient(90deg, ${regions.join(',')})`;
   };
 
+  const sendFeedback = async () => {
+    setFeedbackLoading(true);
+    const payload = { ...props, feedbackComment };
+    await fetch(`${props.feedbackUrl}/feedback` as string, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+
+    setFeedbackModalOpen(false);
+    setFeedbackLoading(false);
+  };
+
   return (
     <>
       <Modal
@@ -93,6 +110,7 @@ export function Distortions(
             </Text>
             <Textarea
               mt={5}
+              isDisabled={feedbackLoading}
               value={feedbackComment}
               onChange={(ev) => setFeedbackComment(ev.target.value)}
               placeholder="Help us to understand where we went wrong (optional)"
@@ -100,10 +118,19 @@ export function Distortions(
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button
+              onClick={sendFeedback}
+              isLoading={feedbackLoading}
+              colorScheme="blue"
+              mr={3}
+            >
               Submit feedback
             </Button>
-            <Button onClick={() => setFeedbackModalOpen(false)} variant="ghost">
+            <Button
+              isDisabled={feedbackLoading}
+              onClick={() => setFeedbackModalOpen(false)}
+              variant="ghost"
+            >
               Cancel
             </Button>
           </ModalFooter>

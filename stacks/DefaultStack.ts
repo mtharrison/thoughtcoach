@@ -1,4 +1,11 @@
-import { WebSocketApi, NextjsSite, StackContext, Config } from 'sst/constructs';
+import {
+  WebSocketApi,
+  Api,
+  NextjsSite,
+  StackContext,
+  Config,
+  Table,
+} from 'sst/constructs';
 
 export function DefaultStack({ stack, app }: StackContext) {
   const stage = app.stage;
@@ -35,6 +42,25 @@ export function DefaultStack({ stack, app }: StackContext) {
 
   completionApi.bind([OPENAI_API_KEY]);
 
+  const feedbackTable = new Table(stack, 'Feedback', {
+    fields: {
+      id: 'string',
+      body: 'string',
+    },
+    primaryIndex: { partitionKey: 'id' },
+  });
+
+  const feedbackApi = new Api(stack, 'FeedbackAPI', {
+    routes: {
+      'POST   /feedback': 'packages/feedback/src/feedback.main',
+    },
+    defaults: {
+      function: {
+        bind: [feedbackTable],
+      },
+    },
+  });
+
   const frontend = new NextjsSite(stack, 'Site', {
     path: 'packages/frontend',
     customDomain: {
@@ -43,15 +69,15 @@ export function DefaultStack({ stack, app }: StackContext) {
     },
     environment: {
       COMPLETION_API_WSS_URL: completionApi.url,
+      FEEDBACK_URL: feedbackApi.url,
       MAINTENANCE_MODE: MAINTENANCE_MODE.value,
     },
   });
-
-  // Allow the Next.js API to access the table
 
   // Show the site URL in the output
   stack.addOutputs({
     URL: frontend.url,
     COMPLETION_API_WSS_URL: completionApi.url,
+    FEEDBACK_URL: feedbackApi.url,
   });
 }
