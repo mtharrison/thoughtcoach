@@ -3,9 +3,12 @@ import { WebSocketApi, NextjsSite, StackContext, Config } from 'sst/constructs';
 export function DefaultStack({ stack, app }: StackContext) {
   const stage = app.stage;
 
+  const MAINTENANCE_MODE = new Config.Parameter(stack, 'MAINTENANCE_MODE', {
+    value: 'false',
+  });
   const OPENAI_API_KEY = new Config.Secret(stack, 'OPENAI_API_KEY');
 
-  let frontendDomain = 'local.thoughtcoach.app';
+  let frontendDomain = 'matt.thoughtcoach.app';
 
   switch (stage) {
     case 'dev':
@@ -40,6 +43,7 @@ export function DefaultStack({ stack, app }: StackContext) {
     },
     environment: {
       COMPLETION_API_WSS_URL: completionApi.url,
+      MAINTENANCE_MODE: MAINTENANCE_MODE.value,
     },
   });
 

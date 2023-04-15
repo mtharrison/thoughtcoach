@@ -10,9 +10,11 @@ import { AnalyseResponse, DistortionsProps } from '@/types';
 import * as constants from '../constants';
 
 export async function getServerSideProps() {
-  console.log(process.env);
   return {
-    props: { COMPLETION_API_WSS_URL: process.env.COMPLETION_API_WSS_URL },
+    props: {
+      COMPLETION_API_WSS_URL: process.env.COMPLETION_API_WSS_URL,
+      MAINTENANCE_MODE: process.env.MAINTENANCE_MODE,
+    },
   };
 }
 
@@ -54,9 +56,6 @@ export default function Home(props: any) {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [ws, setWs] = useState<WebSocket | null>(null);
-  const [maintenance, setMaintenance] = useState(
-    process.env.NEXT_PUBLIC_MAINTENANCE !== 'false'
-  );
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -195,7 +194,7 @@ export default function Home(props: any) {
     );
   };
 
-  if (maintenance) {
+  if (props.MAINTENANCE_MODE === 'true') {
     return renderMaintenance();
   }
 

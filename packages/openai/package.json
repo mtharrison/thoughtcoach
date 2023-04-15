@@ -1,12 +1,9 @@
 {
-  "name": "thought-coach-openai-api",
+  "name": "thought-coach-openai",
   "version": "0.0.0",
   "private": true,
   "main": "functions.js",
   "scripts": {
-    "dev": "npx sls offline",
-    "dev-deploy": "sls deploy --org=mtharrison --stage dev",
-    "prd-deploy": "sls deploy --org=mtharrison --stage prd",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "None",
@@ -16,7 +13,5 @@
     "openai": "^3.2.1",
     "sst": "^2.5.2"
   },
-  "devDependencies": {
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.310.0"
-  }
+  "devDependencies": {}
 }
