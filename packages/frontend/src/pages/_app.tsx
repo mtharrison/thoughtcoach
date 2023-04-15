@@ -5,6 +5,7 @@ import {
   extendTheme,
 } from '@chakra-ui/react';
 import { Comfortaa } from 'next/font/google';
+import Script from 'next/script';
 
 const headerFont = Comfortaa({
   subsets: ['latin'],
@@ -91,6 +92,7 @@ function App({ Component, pageProps }: { Component: any; pageProps: any }) {
   return (
     <ChakraProvider theme={theme}>
       <Component {...pageProps} />
+      <Script async src="https://js.stripe.com/v3/buy-button.js" />
     </ChakraProvider>
   );
 }

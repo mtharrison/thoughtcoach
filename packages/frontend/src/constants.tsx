@@ -117,7 +117,7 @@ const distortions: DistortionsConfig = {
 
 export const site = {
   name: 'Thought Coach',
-  sponsorship: false,
+  sponsorship: true,
   domain: 'thoughtcoach.app',
   description: 'Helping you to think rationally',
   examples: [

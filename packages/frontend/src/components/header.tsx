@@ -25,7 +25,7 @@ export default function Header() {
         </Link>
       </WrapItem>
 
-      <WrapItem height="fit-content" p={5}>
+      <WrapItem height="fit-content" alignItems={'center'} p={5}>
         {/* <Link
           color="headingColor2"
           px={2}
@@ -56,18 +56,6 @@ export default function Header() {
           Guide to Cognitive Distortions
         </Link>
 
-        {constants.site.sponsorship && (
-          <Link
-            color="headingColor"
-            px={2}
-            textDecoration="underline"
-            fontWeight={'bold'}
-            as={NextLink}
-            href="https://www.patreon.com/ThoughtCoach/membership"
-          >
-            Sponsor Development
-          </Link>
-        )}
         <Link
           color="headingColor"
           px={2}
@@ -78,6 +66,22 @@ export default function Header() {
         >
           Contact
         </Link>
+        {constants.site.sponsorship && (
+          <Link
+            px={3}
+            py={2}
+            ml={3}
+            fontWeight={'bold'}
+            bg={'highlight'}
+            shadow={'sm'}
+            color={'white'}
+            rounded={'lg'}
+            as={NextLink}
+            href="https://buy.stripe.com/cN2g2U3ol5069gc7ss"
+          >
+            Love our app? Help us to keep running
+          </Link>
+        )}
       </WrapItem>
     </Wrap>
   );
