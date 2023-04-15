@@ -153,6 +153,9 @@ importers:
       sst:
         specifier: ^2.5.2
         version: 2.5.2(@types/react@18.0.33)
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
 
 packages:
 
