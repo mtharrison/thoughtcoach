@@ -1,0 +1,12 @@
+pull_request:
+  source_branches:
+    - feat/**
+
+stage_name_constructor: >
+  if [ $SEED_STAGE_BRANCH = 'prd' ]; then
+    echo 'prd'
+  elif [ $SEED_STAGE_BRANCH = 'dev' ]; then
+    echo 'dev'
+  else
+    echo $SEED_STAGE_BRANCH | sed -e 's/\//\-/'
+  fi
