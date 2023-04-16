@@ -1,4 +1,5 @@
 import {
+  Auth,
   WebSocketApi,
   Api,
   NextjsSite,
@@ -14,6 +15,18 @@ export function DefaultStack({ stack, app }: StackContext) {
     value: 'false',
   });
   const OPENAI_API_KEY = new Config.Secret(stack, 'OPENAI_API_KEY');
+
+  // Tables
+
+  const feedbackTable = new Table(stack, 'Feedback', {
+    fields: {
+      id: 'string',
+      body: 'string',
+    },
+    primaryIndex: { partitionKey: 'id' },
+  });
+
+  // Frontend
 
   let frontendDomain = 'matt.thoughtcoach.app';
 
@@ -50,17 +63,20 @@ export function DefaultStack({ stack, app }: StackContext) {
 
   completionApi.bind([OPENAI_API_KEY]);
 
-  const feedbackTable = new Table(stack, 'Feedback', {
-    fields: {
-      id: 'string',
-      body: 'string',
-    },
-    primaryIndex: { partitionKey: 'id' },
-  });
-
   const feedbackApi = new Api(stack, 'FeedbackAPI', {
     routes: {
       'POST   /feedback': 'packages/feedback/src/feedback.main',
+    },
+    defaults: {
+      function: {
+        bind: [feedbackTable],
+      },
+    },
+  });
+
+  const adminApi = new Api(stack, 'AdminAPI', {
+    routes: {
+      'GET   /session': 'packages/admin/src/session.handler',
     },
     defaults: {
       function: {
@@ -79,7 +95,22 @@ export function DefaultStack({ stack, app }: StackContext) {
       COMPLETION_API_WSS_URL: completionApi.url,
       FEEDBACK_URL: feedbackApi.url,
       MAINTENANCE_MODE: MAINTENANCE_MODE.value,
+      ADMIN_URL: adminApi.url,
     },
+  });
+
+  adminApi.bind([frontend]);
+
+  const adminAuth = new Auth(stack, 'AdminAuth', {
+    authenticator: {
+      handler: 'packages/admin/src/auth.handler',
+      bind: [frontend],
+    },
+  });
+
+  adminAuth.attach(stack, {
+    api: adminApi,
+    prefix: '/auth',
   });
 
   // Show the site URL in the output
@@ -87,5 +118,6 @@ export function DefaultStack({ stack, app }: StackContext) {
     URL: frontend.url,
     COMPLETION_API_WSS_URL: completionApi.url,
     FEEDBACK_URL: feedbackApi.url,
+    ADMIN_URL: adminApi.url,
   });
 }
