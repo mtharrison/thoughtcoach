@@ -28,15 +28,10 @@ export function DefaultStack({ stack, app }: StackContext) {
 
   // Frontend
 
-  let frontendDomain = 'matt.thoughtcoach.app';
+  let frontendDomain = 'thoughtcoach.app';
 
-  switch (stage) {
-    case 'dev':
-      frontendDomain = 'dev.thoughtcoach.app';
-      break;
-    case 'prd':
-      frontendDomain = 'thoughtcoach.app';
-      break;
+  if (stage !== 'prd') {
+    frontendDomain = `${stage}.thoughcoach.app`;
   }
 
   const responseCacheTable = new Table(stack, 'ResponseCache', {
