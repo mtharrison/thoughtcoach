@@ -26,7 +26,7 @@ function marshalDistortions(reference: any): DistortionsProps {
 export default function CognitiveDistortions() {
   return (
     <Layout>
-      <Container variant={'main'} maxW={{ sm: '100%', md: '80%' }}>
+      <Container variant={'main'}>
         <Heading mb={5} size={'lg'}>
           What are Cognitive Distortions?
         </Heading>

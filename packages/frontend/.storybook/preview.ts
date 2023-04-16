@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/react';
 
-import { chakraTheme } from '../src/pages/_app';
+import theme from '../src/pages/_theme';
 
 export const parameters = {
   chakra: {
-    theme: chakraTheme,
+    theme,
   },
 };
 
