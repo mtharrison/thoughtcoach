@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Distortions } from './distortions';
+import { Distortions } from '../components/distortions';
 
 const meta: Meta<typeof Distortions> = {
   title: 'ThoughtCoach/Components/Distortions',

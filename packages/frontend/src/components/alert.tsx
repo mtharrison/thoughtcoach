@@ -10,41 +10,44 @@ import {
 
 import { WarningIcon } from '@chakra-ui/icons';
 
-export default function Alert({
-  isOpen,
-  dialogClose,
-}: {
-  dialogClose: Function;
-  isOpen: boolean;
-}) {
+import { useRef } from 'react';
+
+export interface AlertProps {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  description: string;
+}
+
+export default function Alert(props: AlertProps) {
+  const { open, onClose, title, description } = props;
+
+  const cancelRef = useRef(null);
+
   return (
-    <>
-      <AlertDialog
-        isCentered={true}
-        isOpen={isOpen}
-        //@ts-ignore
-        size={'xl'}
-        //@ts-ignore
-        onClose={dialogClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              <WarningIcon w={8} h={8} mr={4} color="red.500" />
-              We're sorry, an error occured
-            </AlertDialogHeader>
+    <AlertDialog
+      leastDestructiveRef={cancelRef}
+      isCentered={true}
+      isOpen={open}
+      size={'xl'}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            <WarningIcon w={8} h={8} mr={4} color="red.500" />
+            {title}
+          </AlertDialogHeader>
 
-            <AlertDialogBody>
-              This is a known issue that we're working to resolve. Close this
-              dialog box and try to submit your request again.
-            </AlertDialogBody>
+          <AlertDialogBody>{description}</AlertDialogBody>
 
-            <AlertDialogFooter>
-              <Button onClick={() => dialogClose()}>Cancel</Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={() => onClose()}>
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   );
 }

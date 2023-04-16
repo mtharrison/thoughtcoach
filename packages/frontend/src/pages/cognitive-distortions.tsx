@@ -1,7 +1,7 @@
-import Layout from '@/components/layout';
+import Layout from '../components/layout';
 import { Container, Heading, Text } from '@chakra-ui/react';
 
-import { Distortions } from '@/components/distortions';
+import { Distortions } from '../components/distortions';
 import { DistortionsProps } from '@/types';
 import * as constants from '../constants';
 
@@ -40,7 +40,7 @@ export default function CognitiveDistortions() {
           distortions, individuals can gradually improve their thinking patterns
           and develop healthier, more balanced perspectives.
         </Text>
-        <Text mb={7} size={'sm'}>
+        <Text mb={5} size={'sm'}>
           Here are a list of common cognitive distortions with examples:
         </Text>
         <Distortions

@@ -1,18 +1,11 @@
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Box,
   Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
   ModalBody,
   ModalFooter,
-  CloseButton,
   Divider,
   Text,
 } from '@chakra-ui/react';

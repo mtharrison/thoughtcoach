@@ -22,7 +22,6 @@ export const main: APIGatewayProxyHandler = async (event) => {
   const getParams = {
     // @ts-ignore
     TableName: Table.ResponseCache.tableName,
-    // Get the row where the counter is called "hits"
     Key: {
       id: cacheKey,
     },
@@ -102,10 +101,8 @@ export const main: APIGatewayProxyHandler = async (event) => {
       Key: {
         id: cacheKey,
       },
-      // Update the "tally" column
       UpdateExpression: 'SET body = :s',
       ExpressionAttributeValues: {
-        // Increase the count
         ':s': resData,
       },
     };

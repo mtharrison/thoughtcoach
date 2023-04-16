@@ -5,12 +5,11 @@ import * as constants from '../constants';
 
 import Content from 'content';
 
-import Alert from '@/components/alert';
-import Header from '@/components/header';
-import Disclaimer from '@/components/disclaimer';
+import Alert from './alert';
+import Header from './header';
+import Disclaimer from './disclaimer';
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
 
@@ -45,11 +44,12 @@ export default function Layout({ children }: { children: ReactNode }) {
             ></Disclaimer>
           </Container>
           <Alert
-            isOpen={error != ''}
-            dialogClose={() => {
+            open={error != ''}
+            onClose={() => {
               setError('');
-              setLoading(false);
             }}
+            title="An error occured"
+            description="Please close this box and try again"
           ></Alert>
           <Box p={3} bg="headerBlockColor">
             <Header />
