@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "baseUrl": ".",
+    "paths": {}
+  },
+  "include": ["./sst-env.d.ts"]
+}
