@@ -30,7 +30,7 @@ export const main: APIGatewayProxyHandler = async (event) => {
   const chat = new ChatOpenAI({
     temperature: 0.5,
     openAIApiKey: Config.OPENAI_API_KEY,
-    modelName: 'gpt-4-0613',
+    modelName: 'gpt-4-1106-preview',
   });
 
   const { eventText, thoughtText } = input.body;
